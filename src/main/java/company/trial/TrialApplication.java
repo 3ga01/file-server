@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //import company.trial.User.UserController;
 
 @SpringBootApplication
-public class TrialApplication {
+public class TrialApplication extends SpringBootServletInitializer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrialApplication.class, args);
