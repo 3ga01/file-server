@@ -17,7 +17,7 @@ public class Controller {
   // // user
   // // get users
 
-  @GetMapping("/")
+  @GetMapping("/index")
   public ModelAndView showHome() {
     return new ModelAndView("index");
   }
@@ -29,10 +29,10 @@ public class Controller {
   // return new ModelAndView("welcome");
   // }
 
-  //get signUp Page
+  // get signUp Page
   @GetMapping("/signUp")
   public ModelAndView showPage() {
-  return new ModelAndView("signUp");
+    return new ModelAndView("signUp");
   }
 
   // // get landing page after signUp
@@ -44,14 +44,14 @@ public class Controller {
   // // proceed to landing page after user signs up
   @GetMapping("/newsignup")
   public ModelAndView newSignUp() {
-  return new ModelAndView("landing");
+    return new ModelAndView("landing");
   }
 
   // get login page on request
   @GetMapping("/login")
   public ModelAndView loginPage(Model model) {
-  model.addAttribute("validusers", new User());
-  return new ModelAndView("login");
+    model.addAttribute("validusers", new User());
+    return new ModelAndView("login");
   }
 
   // validate user on login
@@ -70,7 +70,7 @@ public class Controller {
   // get reset user password page
   @GetMapping("/reset")
   public ModelAndView showResetPasswordForm() {
-  return new ModelAndView("reset");
+    return new ModelAndView("reset");
   }
 
   // validate and update user password
@@ -95,7 +95,7 @@ public class Controller {
   // Admin
   @GetMapping("/adminLogin")
   public ModelAndView showAdminLogin() {
-  return new ModelAndView("adminLogin");
+    return new ModelAndView("adminLogin");
   }
 
   // @PostMapping("/adminLogin")
@@ -112,7 +112,7 @@ public class Controller {
 
   @GetMapping("/adminReset")
   public ModelAndView showAdminReset() {
-  return new ModelAndView("adminReset");
+    return new ModelAndView("adminReset");
   }
 
   // @PostMapping("/resetAdmin-password")
