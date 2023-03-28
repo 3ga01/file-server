@@ -1,39 +1,51 @@
 package company.trial;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import company.trial.repositories.User;
+import company.trial.repositories.UserRepository;
+
 @RestController
 public class Controller {
-  // @Autowired // (required = false)
-  // private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
   // // user
   // // get users
 
-  @GetMapping("/index")
+  @GetMapping("/")
   public ModelAndView showHome() {
     return new ModelAndView("index");
   }
 
-  // // add new users
-  // @PostMapping("/adduser")
-  // public ModelAndView saveUser(@ModelAttribute("users") User user) {
-  // userRepository.save(user);
-  // return new ModelAndView("welcome");
-  // }
-
+  // add new users
+  @PostMapping("/adduser")
+  public ModelAndView saveUser(@ModelAttribute("users") User user) {
+    userRepository.save(user);
+    return new ModelAndView("welcome");
+  }
   // get signUp Page
   @GetMapping("/signUp")
   public ModelAndView showPage() {
     return new ModelAndView("signUp");
   }
+
+  // @GetMapping("/welcome")
+  // public ModelAndView welcomeNewUser(){
+  //       return new ModelAndView("welcome");
+
+  // }
 
   // // get landing page after signUp
   // @GetMapping("/landing")

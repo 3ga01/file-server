@@ -7,10 +7,16 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import company.trial.repositories.UserRepository;
+
 //import company.trial.User.UserController;
 
 @SpringBootApplication
-public class TrialApplication extends SpringBootServletInitializer{
+@ComponentScan(basePackages = "company.trial.repositories")
+@EnableJpaRepositories(basePackages = "company.trial.repositories")
+@ComponentScan(basePackageClasses = UserRepository.class)
+
+public class TrialApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrialApplication.class, args);

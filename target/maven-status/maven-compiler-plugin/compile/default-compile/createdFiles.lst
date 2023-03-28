@@ -1,4 +1,4 @@
 company/trial/Controller.class
-company/trial/Admin.class
+company/trial/repositories/User.class
 company/trial/TrialApplication.class
-company/trial/User.class
+company/trial/repositories/UserRepository.class
