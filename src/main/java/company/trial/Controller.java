@@ -19,7 +19,7 @@ public class Controller {
 
   @GetMapping("/")
   public ModelAndView showHome() {
-  return new ModelAndView("index");
+    return new ModelAndView("index");
   }
 
   // // add new users
@@ -32,7 +32,7 @@ public class Controller {
   // get signUp Page
   // @GetMapping("/signUp")
   // public ModelAndView showPage() {
-  //   return new ModelAndView("signUp");
+  // return new ModelAndView("signUp");
   // }
 
   // // get landing page after signUp
@@ -50,8 +50,8 @@ public class Controller {
   // get login page on request
   // @GetMapping("/login")
   // public ModelAndView loginPage(Model model) {
-  //   model.addAttribute("validusers", new User());
-  //   return new ModelAndView("login");
+  // model.addAttribute("validusers", new User());
+  // return new ModelAndView("login");
   // }
 
   // validate user on login
