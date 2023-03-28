@@ -29,11 +29,11 @@ public class Controller {
   // return new ModelAndView("welcome");
   // }
 
-  // get signUp Page
-  // @GetMapping("/signUp")
-  // public ModelAndView showPage() {
-  // return new ModelAndView("signUp");
-  // }
+  //get signUp Page
+  @GetMapping("/signUp")
+  public ModelAndView showPage() {
+  return new ModelAndView("signUp");
+  }
 
   // // get landing page after signUp
   // @GetMapping("/landing")
@@ -42,17 +42,17 @@ public class Controller {
   // }
 
   // // proceed to landing page after user signs up
-  // @GetMapping("/newsignup")
-  // public ModelAndView newSignUp() {
-  // return new ModelAndView("landing");
-  // }
+  @GetMapping("/newsignup")
+  public ModelAndView newSignUp() {
+  return new ModelAndView("landing");
+  }
 
   // get login page on request
-  // @GetMapping("/login")
-  // public ModelAndView loginPage(Model model) {
-  // model.addAttribute("validusers", new User());
-  // return new ModelAndView("login");
-  // }
+  @GetMapping("/login")
+  public ModelAndView loginPage(Model model) {
+  model.addAttribute("validusers", new User());
+  return new ModelAndView("login");
+  }
 
   // validate user on login
   // @PostMapping("/login")
@@ -68,10 +68,10 @@ public class Controller {
   // }
 
   // get reset user password page
-  // @GetMapping("/reset")
-  // public ModelAndView showResetPasswordForm() {
-  // return new ModelAndView("reset");
-  // }
+  @GetMapping("/reset")
+  public ModelAndView showResetPasswordForm() {
+  return new ModelAndView("reset");
+  }
 
   // validate and update user password
 
@@ -93,10 +93,10 @@ public class Controller {
   // private AdminRepository adminRepository;
 
   // Admin
-  // @GetMapping("/adminLogin")
-  // public ModelAndView showAdminLogin() {
-  // return new ModelAndView("adminLogin");
-  // }
+  @GetMapping("/adminLogin")
+  public ModelAndView showAdminLogin() {
+  return new ModelAndView("adminLogin");
+  }
 
   // @PostMapping("/adminLogin")
   // public ModelAndView adminLogin(@ModelAttribute("validadmin") Admin admin) {
@@ -110,10 +110,10 @@ public class Controller {
 
   // }
 
-  // @GetMapping("/adminReset")
-  // public ModelAndView showAdminReset() {
-  // return new ModelAndView("adminReset");
-  // }
+  @GetMapping("/adminReset")
+  public ModelAndView showAdminReset() {
+  return new ModelAndView("adminReset");
+  }
 
   // @PostMapping("/resetAdmin-password")
   // public ModelAndView resetAdminPasswordAndView(@RequestParam String email,
