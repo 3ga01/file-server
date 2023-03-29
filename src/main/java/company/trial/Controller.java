@@ -35,6 +35,7 @@ public class Controller {
     userRepository.save(user);
     return new ModelAndView("welcome");
   }
+
   // get signUp Page
   @GetMapping("/signUp")
   public ModelAndView showPage() {
@@ -43,7 +44,7 @@ public class Controller {
 
   // @GetMapping("/welcome")
   // public ModelAndView welcomeNewUser(){
-  //       return new ModelAndView("welcome");
+  // return new ModelAndView("welcome");
 
   // }
 
@@ -54,7 +55,7 @@ public class Controller {
   // }
 
   // // proceed to landing page after user signs up
-  @GetMapping("/newsignup")
+  @GetMapping("/userPage")
   public ModelAndView newSignUp() {
     return new ModelAndView("landing");
   }
@@ -67,17 +68,16 @@ public class Controller {
   }
 
   // validate user on login
-  // @PostMapping("/login")
-  // public ModelAndView login(@ModelAttribute("validusers") User user) {
-  // User foundUser = userRepository.findByEMAIL(user.getEMAIL());
-  // if (foundUser != null && foundUser.getPassword().equals(user.getPassword()))
-  // {
-  // return new ModelAndView("landing");
-  // } else {
-  // return new ModelAndView("login");
-  // }
+  @PostMapping("/login")
+  public ModelAndView login(@ModelAttribute("validusers") User user) {
+    User foundUser = userRepository.findByEmail(user.getEmail());
+    if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+      return new ModelAndView("landing");
+    } else {
+      return new ModelAndView("login");
+    }
 
-  // }
+  }
 
   // get reset user password page
   @GetMapping("/reset")
