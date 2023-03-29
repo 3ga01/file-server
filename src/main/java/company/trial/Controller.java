@@ -41,19 +41,7 @@ public class Controller {
     return new ModelAndView("signUp");
   }
 
-  // @GetMapping("/welcome")
-  // public ModelAndView welcomeNewUser(){
-  // return new ModelAndView("welcome");
-
-  // }
-
-  // // get landing page after signUp
-  // @GetMapping("/landing")
-  // public ModelAndView showpage() {
-  // return new ModelAndView("landing");
-  // }
-
-  // // proceed to landing page after user signs up
+   // proceed to landing page after user signs up
   @PostMapping("/userPage")
   public ModelAndView newSignUp() {
     return new ModelAndView("landing");
@@ -85,20 +73,19 @@ public class Controller {
   }
 
   // validate and update user password
+  @PostMapping("/reset-password")
+  public ModelAndView resetUserPassword(@RequestParam String email,
+  @RequestParam String password, Model model) {
+  User user = userRepository.findByEmail(email);
+  if (user != null) {
+  user.setPassword(password);
+  userRepository.save(user);
+  return new ModelAndView("login");
+  } else {
+  return new ModelAndView("reset");
 
-  // @PostMapping("/reset-password")
-  // public ModelAndView resetUserPassword(@RequestParam String EMAIL,
-  // @RequestParam String password, Model model) {
-  // User user = userRepository.findByEMAIL(EMAIL);
-  // if (user != null) {
-  // user.setPassword(password);
-  // userRepository.save(user);
-  // return new ModelAndView("login");
-  // } else {
-  // return new ModelAndView("reset");
-
-  // }
-  // }
+  }
+  }
 
   // @Autowired // (required = false)
   // private AdminRepository adminRepository;
