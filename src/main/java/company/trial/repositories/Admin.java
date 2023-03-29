@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "admin")
-public class Admin  {
+public class Admin {
 
   @Id
   @GeneratedValue
@@ -28,7 +28,7 @@ public class Admin  {
     this.id = id;
   }
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   private String name;
 
   /**
@@ -45,7 +45,7 @@ public class Admin  {
     this.name = name;
   }
 
-  @Column(name = "email")
+  @Column(name = "email", nullable = false, unique = true)
   private String email;
 
   /**
@@ -62,7 +62,7 @@ public class Admin  {
     this.email = email;
   }
 
-  @Column(name = "password")
+  @Column(name = "password", nullable = false)
   private String password;
 
   /**

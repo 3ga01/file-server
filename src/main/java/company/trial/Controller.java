@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import company.trial.repositories.Admin;
 import company.trial.repositories.AdminRepository;
 import company.trial.repositories.User;
 import company.trial.repositories.UserRepository;
@@ -98,17 +99,17 @@ public class Controller {
     return new ModelAndView("adminLogin");
   }
 
-  // @PostMapping("/adminLogin")
-  // public ModelAndView adminLogin(@ModelAttribute("validadmin") Admin admin) {
-  // Admin foundAdmin = adminRepository.findByemail(admin.getEmail());
-  // if (foundAdmin != null &&
-  // foundAdmin.getPassword().equals(admin.getPassword())) {
-  // return new ModelAndView("adminLanding");
-  // } else {
-  // return new ModelAndView("adminLanding");
-  // }
+  @PostMapping("/adminLogin")
+  public ModelAndView adminLogin(@ModelAttribute("validadmin") Admin admin) {
+  Admin foundAdmin = adminRepository.findByEmail(admin.getEmail());
+  if (foundAdmin != null &&
+  foundAdmin.getPassword().equals(admin.getPassword())) {
+  return new ModelAndView("adminLanding");
+  } else {
+  return new ModelAndView("adminLogin");
+  }
 
-  // }
+  }
 
   @GetMapping("/adminReset")
   public ModelAndView showAdminReset() {
