@@ -18,12 +18,11 @@ import company.trial.repositories.UserRepository;
 
 @RestController
 public class Controller {
+
   @Autowired
   private UserRepository userRepository;
 
-  // // user
-  // // get users
-
+  // show Hom Page
   @GetMapping("/")
   public ModelAndView showHome() {
     return new ModelAndView("index");
@@ -55,7 +54,7 @@ public class Controller {
   // }
 
   // // proceed to landing page after user signs up
-  @GetMapping("/userPage")
+  @PostMapping("/userPage")
   public ModelAndView newSignUp() {
     return new ModelAndView("landing");
   }
