@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import company.trial.repositories.AdminRepository;
 import company.trial.repositories.User;
 import company.trial.repositories.UserRepository;
 
@@ -21,6 +22,9 @@ public class Controller {
 
   @Autowired
   private UserRepository userRepository;
+
+   @Autowired 
+   private AdminRepository adminRepository;
 
   // show Hom Page
   @GetMapping("/")
@@ -87,9 +91,7 @@ public class Controller {
   }
   }
 
-  // @Autowired // (required = false)
-  // private AdminRepository adminRepository;
-
+ 
   // Admin
   @GetMapping("/adminLogin")
   public ModelAndView showAdminLogin() {
