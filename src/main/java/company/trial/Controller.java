@@ -1,5 +1,7 @@
 package company.trial;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import company.trial.repositories.Admin;
 import company.trial.repositories.AdminRepository;
+import company.trial.repositories.FileRepository;
+import company.trial.repositories.Files;
 import company.trial.repositories.User;
 import company.trial.repositories.UserRepository;
 
@@ -22,6 +26,9 @@ public class Controller {
 
   @Autowired
   private AdminRepository adminRepository;
+
+  @Autowired
+  private FileRepository fileRepository;
 
   // show Hom Page
   @GetMapping("/")
@@ -57,10 +64,14 @@ public class Controller {
 
   // validate user on login
   @PostMapping("/login")
-  public ModelAndView login(@ModelAttribute("validusers") User user) {
+  public ModelAndView login(@ModelAttribute("validusers") User user, Model model) {
     User foundUser = userRepository.findByEmail(user.getEmail());
     if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+
+      List<Files> files = fileRepository.findAll();
+      model.addAttribute("files", files);
       return new ModelAndView("landing");
+
     } else {
       return new ModelAndView("login");
     }
@@ -124,5 +135,7 @@ public class Controller {
       return new ModelAndView("adminReset");
     }
   }
+
+  //
 
 }

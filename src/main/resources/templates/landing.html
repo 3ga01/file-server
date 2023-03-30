@@ -1,80 +1,56 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Feed Page</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>File Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-D/lX1+Lq1dzyjHSiRmPmDODwnO+Y81Gv34bZ7E9nclztFSklcpVqDg5pF7VHjtdtM5YV/nfkvSK8LdWuDX9pqg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-      /* Responsive styles */
-      @media screen and (max-width: 768px) {
-        .container {
-          max-width: 95%;
+        .card {
+            border: none;
+            margin-bottom: 1rem;
         }
-      }
-      
-      /* Non-responsive styles */
-      .container {
-        max-width: 960px;
-        margin: 0 auto;
-      }
-      
-      h1 {
-        text-align: center;
-      }
-      
-      ul {
-        list-style: none;
-        padding: 0;
-      }
-      
-      li {
-        margin-bottom: 10px;
-        background-color: #eee;
-        padding: 10px;
-        border-radius: 5px;
-      }
-      
-      a {
-        color: #333;
-        text-decoration: none;
-      }
-      
-      a:hover {
-        text-decoration: underline;
-      }
+        .card img {
+            max-height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 1.25rem;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .card-text {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        @media screen and (max-width: 768px) {
+            .card img {
+                max-height: 150px;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+            .card-text {
+                font-size: 0.9rem;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1>File Feed Page</h1>
-      <ul>
-        <li><a href="https://example.com/file1.pdf">File 1</a></li>
-        <li><a href="https://example.com/file2.zip">File 2</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-        <li><a href="https://example.com/file3.docx">File 3</a></li>
-
-      </ul>
+        <h1>File Card</h1>
+        <div class="row">
+            <div th:each="files : ${files}" class="col-md-4">
+                <div class="card">
+                    <img  alt="File image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${files.name}"></h5>
+                        <p class="card-text" th:text="${files.description}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </body>
+</body>
 </html>
