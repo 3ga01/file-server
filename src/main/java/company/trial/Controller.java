@@ -115,18 +115,18 @@ public class Controller {
     return new ModelAndView("adminReset");
   }
 
-  // @PostMapping("/resetAdmin-password")
-  // public ModelAndView resetAdminPasswordAndView(@RequestParam String email,
-  // @RequestParam String password,
-  // Model model) {
-  // Admin admin = adminRepository.findByemail(email);
-  // if (admin != null) {
-  // admin.setPassword(password);
-  // adminRepository.save(admin);
-  // return new ModelAndView("adminLogin");
-  // } else {
-  // return new ModelAndView("adminReset");
-  // }
-  // }
+  @PostMapping("/resetAdmin-password")
+  public ModelAndView resetAdminPasswordAndView(@RequestParam String email,
+      @RequestParam String password,
+      Model model) {
+    Admin admin = adminRepository.findByEmail(email);
+    if (admin != null) {
+      admin.setPassword(password);
+      adminRepository.save(admin);
+      return new ModelAndView("adminLogin");
+    } else {
+      return new ModelAndView("adminReset");
+    }
+  }
 
 }
