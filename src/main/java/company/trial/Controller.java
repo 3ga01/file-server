@@ -24,8 +24,8 @@ public class Controller {
   @Autowired
   private UserRepository userRepository;
 
-   @Autowired 
-   private AdminRepository adminRepository;
+  @Autowired
+  private AdminRepository adminRepository;
 
   // show Hom Page
   @GetMapping("/")
@@ -46,7 +46,7 @@ public class Controller {
     return new ModelAndView("signUp");
   }
 
-   // proceed to landing page after user signs up
+  // proceed to landing page after user signs up
   @PostMapping("/userPage")
   public ModelAndView newSignUp() {
     return new ModelAndView("landing");
@@ -80,19 +80,18 @@ public class Controller {
   // validate and update user password
   @PostMapping("/reset-password")
   public ModelAndView resetUserPassword(@RequestParam String email,
-  @RequestParam String password, Model model) {
-  User user = userRepository.findByEmail(email);
-  if (user != null) {
-  user.setPassword(password);
-  userRepository.save(user);
-  return new ModelAndView("login");
-  } else {
-  return new ModelAndView("reset");
+      @RequestParam String password, Model model) {
+    User user = userRepository.findByEmail(email);
+    if (user != null) {
+      user.setPassword(password);
+      userRepository.save(user);
+      return new ModelAndView("login");
+    } else {
+      return new ModelAndView("reset");
 
-  }
+    }
   }
 
- 
   // Admin
   @GetMapping("/adminLogin")
   public ModelAndView showAdminLogin() {
@@ -101,13 +100,13 @@ public class Controller {
 
   @PostMapping("/adminLogin")
   public ModelAndView adminLogin(@ModelAttribute("validadmin") Admin admin) {
-  Admin foundAdmin = adminRepository.findByEmail(admin.getEmail());
-  if (foundAdmin != null &&
-  foundAdmin.getPassword().equals(admin.getPassword())) {
-  return new ModelAndView("adminLanding");
-  } else {
-  return new ModelAndView("adminLogin");
-  }
+    Admin foundAdmin = adminRepository.findByEmail(admin.getEmail());
+    if (foundAdmin != null &&
+        foundAdmin.getPassword().equals(admin.getPassword())) {
+      return new ModelAndView("adminLanding");
+    } else {
+      return new ModelAndView("adminLogin");
+    }
 
   }
 
