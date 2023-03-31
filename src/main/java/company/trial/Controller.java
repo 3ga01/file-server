@@ -38,8 +38,7 @@ public class Controller {
   private FileRepository fileRepository;
 
   @Autowired
-  private  JavaMailSender mailSender;
-
+  private JavaMailSender mailSender;
 
   // show Hom Page
   @GetMapping("/")
@@ -47,16 +46,33 @@ public class Controller {
     return new ModelAndView("index");
   }
 
+  // verify user
+  @PostMapping("/verify")
+  public ModelAndView verifyUser(@ModelAttribute("verify") User user) {
+    User foundCode = userRepository.findByVerificationCode(user.getVerificationCode());
+    if (foundCode != null) {
+      user.setVerified(true);
+
+      return new ModelAndView("welcome");
+    }
+
+    else {
+      return new ModelAndView("verify");
+
+    }
+
+  }
+
   // add new users
   @PostMapping("/adduser")
-  public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException{
-String verificationCode = generateVerificationCode();
-user.setVerificationCode(verificationCode);
+  public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException {
+    String verificationCode = generateVerificationCode();
+    user.setVerificationCode(verificationCode);
     user.setVerified(false);
     user.setVerificationCode(verificationCode);
     userRepository.save(user);
     sendVerificationEmail(user.getEmail(), verificationCode);
-    return new ModelAndView("welcome");
+    return new ModelAndView("verify");
   }
 
   private String generateVerificationCode() {
@@ -80,7 +96,9 @@ user.setVerificationCode(verificationCode);
 
   // proceed to landing page after user signs up
   @PostMapping("/userPage")
-  public ModelAndView newSignUp() {
+  public ModelAndView newSignUp(Model model) {
+    List<Files> files = fileRepository.findAll();
+    model.addAttribute("files", files);
     return new ModelAndView("landing");
   }
 
@@ -192,6 +210,5 @@ user.setVerificationCode(verificationCode);
 
     }
   }
-
 
 }
