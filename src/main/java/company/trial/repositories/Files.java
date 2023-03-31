@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "files")
 public class Files {
-  
+
   @Id
   @GeneratedValue
   private Long id;
@@ -56,7 +56,7 @@ public class Files {
   /**
    * @return the files
    */
-  public byte[] getFiles()  {
+  public byte[] getFiles() {
     return files;
   }
 
@@ -66,7 +66,5 @@ public class Files {
   public void setFiles(byte[] files) {
     this.files = files;
   }
-
-  
 
 }
