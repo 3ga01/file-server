@@ -1,5 +1,6 @@
 package company.trial;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import company.trial.repositories.Admin;
@@ -133,6 +135,34 @@ public class Controller {
       return new ModelAndView("adminLogin");
     } else {
       return new ModelAndView("adminReset");
+    }
+  }
+
+  // upload page
+  @PostMapping("/uploadPage")
+  public ModelAndView showUploadPage() {
+    return new ModelAndView("uploadFile");
+  }
+
+  // upload
+  @PostMapping("/upload")
+  public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
+      @RequestParam("name") String name,
+      @RequestParam("description") String description) {
+    try {
+      Files uploadedFile = new Files();
+      uploadedFile.setName(name);
+      uploadedFile.setDescription(description);
+      uploadedFile.setFiles(file.getBytes());
+
+      // Save the file to the database
+      fileRepository.save(uploadedFile);
+
+      return new ModelAndView("adminLanding");
+    } catch (IOException e) {
+      // handle the exception
+      return new ModelAndView("uploadFile");
+
     }
   }
 

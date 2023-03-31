@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "files")
 public class Files {
-
+  
   @Id
   @GeneratedValue
   private Long id;
@@ -51,20 +51,22 @@ public class Files {
 
   @Lob
   @Column(name = "files", nullable = false)
-  private byte[] data;
+  private byte[] files;
 
   /**
-   * @return the data
+   * @return the files
    */
-  public byte[] getData() {
-    return data;
+  public byte[] getFiles()  {
+    return files;
   }
 
   /**
-   * @param data the data to set
+   * @param files the files to set
    */
-  public void setData(byte[] data) {
-    this.data = data;
+  public void setFiles(byte[] files) {
+    this.files = files;
   }
+
+  
 
 }
