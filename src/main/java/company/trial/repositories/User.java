@@ -78,4 +78,38 @@ public class User {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  @Column(name = "verified")
+  private boolean verified;
+
+  /**
+   * @return the verified
+   */
+  public boolean isVerified() {
+    return verified;
+  }
+
+  /**
+   * @param verified the verified to set
+   */
+  public void setVerified(boolean verified) {
+    this.verified = verified;
+  }
+
+  @Column(name = "verificationCode")
+  private String verificationCode;
+
+  /**
+   * @return the verificationCode
+   */
+  public String getVerificationCode() {
+    return verificationCode;
+  }
+
+  /**
+   * @param verificationCode the verificationCode to set
+   */
+  public void setVerificationCode(String verificationCode) {
+    this.verificationCode = verificationCode;
+  }
 }

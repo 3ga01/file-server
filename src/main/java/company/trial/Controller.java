@@ -2,8 +2,13 @@ package company.trial;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +37,10 @@ public class Controller {
   @Autowired
   private FileRepository fileRepository;
 
+  @Autowired
+  private  JavaMailSender mailSender;
+
+
   // show Hom Page
   @GetMapping("/")
   public ModelAndView showHome() {
@@ -40,9 +49,27 @@ public class Controller {
 
   // add new users
   @PostMapping("/adduser")
-  public ModelAndView saveUser(@ModelAttribute("users") User user) {
+  public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException{
+String verificationCode = generateVerificationCode();
+user.setVerificationCode(verificationCode);
+    user.setVerified(false);
+    user.setVerificationCode(verificationCode);
     userRepository.save(user);
+    sendVerificationEmail(user.getEmail(), verificationCode);
     return new ModelAndView("welcome");
+  }
+
+  private String generateVerificationCode() {
+    // Generate a random 6-digit code
+    return String.format("%06d", new Random().nextInt(999999));
+  }
+
+  private void sendVerificationEmail(String email, String verificationCode) throws MessagingException {
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("Verify your account");
+    message.setText("Your verification code is: " + verificationCode);
+    mailSender.send(message);
   }
 
   // get signUp Page
