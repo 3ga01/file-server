@@ -1,6 +1,7 @@
 package company.trial;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -112,10 +113,10 @@ public class Controller {
 
   // validate user on login
   @PostMapping("/login")
-  public ModelAndView login(@ModelAttribute("validusers") User user, Model model) {
+  public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
     if (foundUser != null && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
-
+      sendLoginAlert(foundUser.getEmail());
       List<Files> files = fileRepository.findAll();
       model.addAttribute("files", files);
       return new ModelAndView("landing");
@@ -124,6 +125,15 @@ public class Controller {
       return new ModelAndView("login");
     }
 
+  }
+
+  private void sendLoginAlert(String email) throws MessagingException {
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("Account Login");
+    message.setText("New login at " + currentDateTime);
+    mailSender.send(message);
   }
 
   // get reset user password page
@@ -138,7 +148,7 @@ public class Controller {
       @RequestParam String password, Model model) {
     User user = userRepository.findByEmail(email);
     if (user != null && user.isVerified() == true) {
-          user.setPassword(password);
+      user.setPassword(password);
       userRepository.save(user);
       return new ModelAndView("login");
     } else {
