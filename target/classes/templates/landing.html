@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-D/lX1+Lq1dzyjHSiRmPmDODwnO+Y81Gv34bZ7E9nclztFSklcpVqDg5pF7VHjtdtM5YV/nfkvSK8LdWuDX9pqg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .card {
-            border: none;
+            border: 1px solid grey;
             margin-bottom: 1rem;
+            margin-top:1rem;
         }
         .card img {
             max-height: 200px;
@@ -21,25 +22,70 @@
             margin-bottom: 0.5rem;
         }
         .card-text {
-            font-size: 1.1rem;
+            font-size: 1.8rem;
             color: #666;
         }
+        .search-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .search-container form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .search-container input[type="text"] {
+        padding: 10px;
+        width: 80%;
+        border: 1px solid grey;
+        border-radius: 5px;
+        outline: none;
+        margin-left: 10px;
+      }
+
+      .search-container button {
+        width: 20%;
+        padding: 10px;
+        background-color: teal;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
         @media screen and (max-width: 768px) {
             .card img {
                 max-height: 150px;
             }
             .card-title {
-                font-size: 1.2rem;
+                font-size: 2rem;
             }
             .card-text {
-                font-size: 0.9rem;
+                font-size: 1.5rem;
             }
+            .search-container input[type="text"] {
+          width: 70%;
+        }
+        .search-container button {
+          width: 20%;
+        }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>File Card</h1>
+        <h1>Browse files</h1>
+        <div class="search-container">
+      <form action="/search">
+        <input type="text" placeholder="Search..." name="search">
+        <button type="submit">search<i class="fa fa-search"></i></button>
+      </form>
+    </div>
         <div class="row">
             <div th:each="files : ${files}" class="col-md-4">
                 <div class="card">
