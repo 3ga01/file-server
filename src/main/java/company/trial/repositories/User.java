@@ -79,7 +79,7 @@ public class User {
     this.email = email;
   }
 
-  @Column(name = "verified")
+  @Column(name = "verified", nullable = false)
   private boolean verified;
 
   /**

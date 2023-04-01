@@ -48,10 +48,11 @@ public class Controller {
 
   // verify user
   @PostMapping("/verify")
-  public ModelAndView verifyUser(@ModelAttribute("verify") User user) {
-    User foundCode = userRepository.findByVerificationCode(user.getVerificationCode());
-    if (foundCode != null) {
+  public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
+    user = userRepository.findByVerificationCode(user.getVerificationCode());
+    if (user != null ) {
       user.setVerified(true);
+      userRepository.save(user);
 
       return new ModelAndView("welcome");
     }
@@ -113,7 +114,7 @@ public class Controller {
   @PostMapping("/login")
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) {
     User foundUser = userRepository.findByEmail(user.getEmail());
-    if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
+    if (foundUser != null && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
 
       List<Files> files = fileRepository.findAll();
       model.addAttribute("files", files);
