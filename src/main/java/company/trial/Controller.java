@@ -50,7 +50,7 @@ public class Controller {
   @PostMapping("/verify")
   public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
     user = userRepository.findByVerificationCode(user.getVerificationCode());
-    if (user != null ) {
+    if (user != null) {
       user.setVerified(true);
       userRepository.save(user);
 
@@ -137,8 +137,8 @@ public class Controller {
   public ModelAndView resetUserPassword(@RequestParam String email,
       @RequestParam String password, Model model) {
     User user = userRepository.findByEmail(email);
-    if (user != null) {
-      user.setPassword(password);
+    if (user != null && user.isVerified() == true) {
+          user.setPassword(password);
       userRepository.save(user);
       return new ModelAndView("login");
     } else {
