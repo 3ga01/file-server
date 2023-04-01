@@ -3,6 +3,7 @@ package company.trial;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -129,10 +130,15 @@ public class Controller {
 
   private void sendLoginAlert(String email) throws MessagingException {
     LocalDateTime currentDateTime = LocalDateTime.now();
+    Locale locale = Locale.getDefault();
+    String countryName = locale.getDisplayCountry();
+    String osName = System.getProperty("os.name");
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(email);
-    message.setSubject("Account Login");
-    message.setText("New login at " + currentDateTime);
+    message.setSubject("Account Login!!!");
+    message.setText(
+        "New login at " + currentDateTime + " by " + osName + " device from "  + " " + countryName + "\n"
+            + "if this wasn't authorized by you,  please click on the link to reset your password.");
     mailSender.send(message);
   }
 
