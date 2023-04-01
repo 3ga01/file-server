@@ -137,9 +137,23 @@ public class Controller {
     message.setTo(email);
     message.setSubject("Account Login!!!");
     message.setText(
-        "New login at " + currentDateTime + " by " + osName + " device from "  + " " + countryName + "\n"
+        "New login at " + currentDateTime + " by " + osName + " device from " + " " + countryName + "\n"
             + "if this wasn't authorized by you,  please click on the link to reset your password.");
     mailSender.send(message);
+  }
+
+  // preview
+  @GetMapping("/preview")
+  public ModelAndView preview(Files files, Model model) {
+    files = fileRepository.findByName(files.getName());
+    if (files != null) {
+      model.addAttribute("files", files);
+      return new ModelAndView("preview");
+
+    } else {
+      return new ModelAndView("landing");
+
+    }
   }
 
   // get reset user password page
@@ -228,4 +242,16 @@ public class Controller {
     }
   }
 
+  // search
+  @PostMapping("/search")
+  public ModelAndView search(@RequestParam(name = "query", required = false) String query, Model model) {
+    List<Files> files;
+    if (query == null) {
+      files = fileRepository.findAll();
+    } else {
+      files = fileRepository.findByNameContainingIgnoreCase(query);
+    }
+    model.addAttribute("files", files);
+    return new ModelAndView("landing");
+  }
 }

@@ -77,15 +77,18 @@
 		<h1>Responsive Feed Page</h1>
 	</header>
 	<div class="container">
-		<form>
-			<input type="text" placeholder="Search...">
+		<form method="post" action="/search" >
+			<input type="text" placeholder="Search..." name="query">
 			<button type="submit">Search</button>
 		</form>
-		<div class="row" th:each="files : ${files}">
-			<div class="col">
+		<div  class="row" th:each="files : ${files}">
+        <div  class="col">
 				<h2 th:text="${files.name}"></h2>
 				<p th:text="${files.description}"></p>
 			</div>
+      
+
+			
 		</div>
 	</div>
 </body>
