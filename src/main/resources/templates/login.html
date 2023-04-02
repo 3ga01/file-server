@@ -11,7 +11,7 @@
 
     .container {
       margin: auto;
-      width: 50%;
+      width: 90%;
       padding: 10px;
       background-color: white;
       border-radius: 10px;
@@ -77,19 +77,13 @@
 
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="password" required>
-                <a th:href="@{/reset}">forgot password? </a>
-
-
-     
+                <a th:href="@{/reset}">forgot password? </a>     
       <p>
           <a th:href="@{/signUp}">Not a user yet? SignUp</a>
 
       </p>
        <button type="submit">Login</button>
               <p><a th:href="@{/adminLogin}">Login as Admin </a></p>
-              
-
-
     </form>
   </div>
 </body>
