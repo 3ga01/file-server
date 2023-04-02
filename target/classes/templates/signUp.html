@@ -7,31 +7,29 @@
 	<style>
 		body {
 			font-family: Arial, sans-serif;
-			margin: 10;
-			padding: 10;
 			background-color: #f2f2f2;
 		}
 		
 		form {
 			background-color: #ffffff;
-			padding: 20px;
-			max-width: 600px;
+			padding: 10px;
 			margin: 0 auto;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			border-radius: 10px;
+			width:50%;
 		}
 		
 		input[type=text], input[type=email], input[type=password] {
 			width: 100%;
-			padding: 12px 20px;
+			padding: 12px 5px;
 			margin: 8px 0;
-			display: inline-block;
-			border: 1px solid #ccc;
 			border-radius: 4px;
-			box-sizing: border-box;
+			 border: none;
+			 margin-bottom: 20px;
 		}
 		
 		button[type=submit] {
-			background-color: #4CAF50;
+			background-color: #333;
 			color: #ffffff;
 			padding: 12px 20px;
 			border: none;
@@ -43,10 +41,21 @@
 		button[type=submit]:hover {
 			background-color: #45a049;
 		}
+
+		 a{
+      text-decoration: none;
+      color: #012e5e;
+    }
 		
 		.container {
 			padding: 16px;
 		}
+
+		 h1 {
+        text-align: center;
+        margin-top: 0;
+      }
+
 		
 		@media screen and (max-width: 600px) {
 			form {
@@ -57,10 +66,10 @@
 </head>
 <body>
 	<form method="post" action="/adduser" th:object="${users}">
-		<h2>Sign Up</h2>
+		<h1>Sign Up</h1>
 		<div class="container">
 			<label for="username"><b>Username</b></label>
-   <input type="text" name = "name" required/>		
+   <input type="text" name = "name" required placeholder="Enter Name" />		
 			<label for="email"><b>Email</b></label>
 			<input type="email" placeholder="Enter Email" name = "email" required>
 		
