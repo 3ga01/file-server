@@ -1,6 +1,10 @@
 package company.trial;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -10,6 +14,9 @@ import java.util.Random;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -149,7 +156,6 @@ public class Controller {
     mailSender.send(message);
   }
 
- 
   // get reset user password page
   @GetMapping("/reset")
   public ModelAndView showResetPasswordForm() {
@@ -218,8 +224,7 @@ public class Controller {
   @PostMapping("/upload")
   public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
       @RequestParam("name") String name,
-      @RequestParam("description") String 
-    description, @RequestParam("type") String type) {
+      @RequestParam("description") String description, @RequestParam("type") String type) {
     try {
       Files uploadedFile = new Files();
       uploadedFile.setName(name);
@@ -251,10 +256,9 @@ public class Controller {
     return new ModelAndView("landing");
   }
 
-
-  //preview
+  // preview
   @GetMapping("/preview/{name:.+}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String name) {
+  public ResponseEntity<byte[]> getFile(@PathVariable String name) {
     Optional<Files> fileOptional = fileRepository.findByName(name);
     if (!fileOptional.isPresent()) {
       return ResponseEntity.notFound().build();
@@ -262,9 +266,36 @@ public class Controller {
     Files files = fileOptional.get();
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.parseMediaType(files.getType()));
-    //headers.setContentLength(files.getFiles().length);
+    // headers.setContentLength(files.getFiles().length);
     headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
     return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+  }
+
+  // dowload files
+  @GetMapping("/download/{name:.+}")
+  public ResponseEntity<Resource> downloadFile(@PathVariable String name) {
+    Optional<Files> optionalFile = fileRepository.findByName(name);
+
+    if (optionalFile.isPresent()) {
+      Files file = optionalFile.get();
+
+      // Create a ByteArrayResource from the file content
+      ByteArrayResource resource = new ByteArrayResource(file.getFiles());
+
+      // Set the response headers to indicate a file download
+      HttpHeaders headers = new HttpHeaders();
+      headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
+
+      // Return the resource as a ResponseEntity with the appropriate headers
+      return ResponseEntity.ok()
+          .headers(headers)
+          .contentLength(resource.contentLength())
+          .contentType(MediaType.APPLICATION_OCTET_STREAM)
+          .body(resource);
+    } else {
+      // Handle the case where the file is not found
+      return ResponseEntity.notFound().build();
+    }
   }
 
 }

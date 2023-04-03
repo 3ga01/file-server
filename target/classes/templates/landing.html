@@ -88,6 +88,8 @@
 					</a>
 				<p th:text="${files.description}"></p>
 			</div>
+			<a th:href="@{/download/{name}(name=${files.name})}">Download</a>
+
 			
 		</div>
 	</div>
