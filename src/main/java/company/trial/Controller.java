@@ -1,22 +1,25 @@
 package company.trial;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 
+import javax.activation.DataHandler;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import company.trial.repositories.Admin;
 import company.trial.repositories.AdminRepository;
@@ -296,6 +300,56 @@ public class Controller {
       // Handle the case where the file is not found
       return ResponseEntity.notFound().build();
     }
+  }
+
+  // send email
+  @PostMapping("/send")
+  public ModelAndView sendFile(@RequestParam("name") String fileName,
+      @RequestParam("recepEmail") String recepEmail,
+      RedirectAttributes redirectAttributes) throws MessagingException {
+
+    Optional<Files> fileOptional = fileRepository.findByName(fileName);
+
+    if (fileOptional.isPresent()) {
+      Files file = fileOptional.get();
+      sendEmailWithAttachment(recepEmail, fileName, file.getFiles());
+      // code to send the file as an email attachment to the recipient
+      redirectAttributes.addFlashAttribute("successMessage", "File sent successfully");
+    } else {
+      redirectAttributes.addFlashAttribute("errorMessage", "File not found");
+    }
+
+    return new ModelAndView("landing");
+  }
+
+  private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData) throws MessagingException {
+
+    MimeMessage message = mailSender.createMimeMessage();
+
+    // Set the To address
+    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+
+    // Set the subject
+    message.setSubject("File attachment: " + fileName);
+
+    // Create the message body
+    MimeBodyPart messageBodyPart = new MimeBodyPart();
+    messageBodyPart.setText("Please find attached file.");
+
+    // Create the attachment
+    MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+    ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, "application/octet-stream");
+    attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
+    attachmentBodyPart.setFileName(fileName);
+
+    // Add the message body and attachment to the multipart message
+    Multipart multipart = new MimeMultipart();
+    multipart.addBodyPart(messageBodyPart);
+    multipart.addBodyPart(attachmentBodyPart);
+    message.setContent(multipart);
+
+    // Send the message
+    mailSender.send(message);
   }
 
 }
