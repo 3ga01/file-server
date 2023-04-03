@@ -83,11 +83,11 @@
 		</form>
 		<div  class="row" th:each="files : ${files}">
         <div  class="col">
-				<h2 th:text="${files.name}"></h2>
+					<a th:href="@{/preview/{name}(name=${files.name})}">
+										<h2 th:text="${files.name}"></h2>
+					</a>
 				<p th:text="${files.description}"></p>
 			</div>
-      
-
 			
 		</div>
 	</div>

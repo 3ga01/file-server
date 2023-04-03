@@ -1,5 +1,7 @@
 package company.trial.repositories;
 
+import java.io.StringReader;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,6 +67,23 @@ public class Files {
    */
   public void setFiles(byte[] files) {
     this.files = files;
+  }
+
+  @Column(name = "type", nullable = false)
+  private String type; // store the file type
+
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
   }
 
 }

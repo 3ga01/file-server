@@ -11,6 +11,15 @@
   <form method="POST" action="/upload" enctype="multipart/form-data">
   <input type="file" name="files" required>
   <input type="text" name="name" placeholder="Enter name" required>
+  <label for="file-type">Select file type:</label>
+<select id="file-type" name="type">
+  <option value="">All</option>
+  <option value="image/jpeg">JPEG Image</option>
+  <option value="application/pdf">PDF Document</option>
+  <option value="audio/mpeg">MP3 Audio</option>
+  <option value="video/mp4">MP4 Video</option>
+</select>
+
   <input type="text" name="description" placeholder="Enter description" required>
   <button type="submit">Upload</button>
 </form>

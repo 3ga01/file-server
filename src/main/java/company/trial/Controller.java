@@ -4,16 +4,23 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -142,20 +149,7 @@ public class Controller {
     mailSender.send(message);
   }
 
-  // preview
-  @GetMapping("/preview")
-  public ModelAndView preview(Files files, Model model) {
-    files = fileRepository.findByName(files.getName());
-    if (files != null) {
-      model.addAttribute("files", files);
-      return new ModelAndView("preview");
-
-    } else {
-      return new ModelAndView("landing");
-
-    }
-  }
-
+ 
   // get reset user password page
   @GetMapping("/reset")
   public ModelAndView showResetPasswordForm() {
@@ -224,12 +218,14 @@ public class Controller {
   @PostMapping("/upload")
   public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
       @RequestParam("name") String name,
-      @RequestParam("description") String description) {
+      @RequestParam("description") String 
+    description, @RequestParam("type") String type) {
     try {
       Files uploadedFile = new Files();
       uploadedFile.setName(name);
       uploadedFile.setDescription(description);
       uploadedFile.setFiles(file.getBytes());
+      uploadedFile.setType(type);
 
       // Save the file to the database
       fileRepository.save(uploadedFile);
@@ -254,4 +250,21 @@ public class Controller {
     model.addAttribute("files", files);
     return new ModelAndView("landing");
   }
+
+
+  //preview
+  @GetMapping("/preview/{name:.+}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String name) {
+    Optional<Files> fileOptional = fileRepository.findByName(name);
+    if (!fileOptional.isPresent()) {
+      return ResponseEntity.notFound().build();
+    }
+    Files files = fileOptional.get();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.parseMediaType(files.getType()));
+    //headers.setContentLength(files.getFiles().length);
+    headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
+    return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+  }
+
 }
