@@ -90,8 +90,14 @@
 			</div>
 			<a th:href="@{/download/{name}(name=${files.name})}">Download</a>
 
-			
+			<p>
+			<form action="" method="post">
+				<input type="email" name = "recepEmail" placeholder="Enter recepient email" required>
+			<button type="submit">send</button>
+			</form>
+		</p>
 		</div>
+		
 	</div>
 </body>
 </html>
