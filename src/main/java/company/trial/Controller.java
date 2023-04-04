@@ -280,6 +280,10 @@ public class Controller {
 
     if (optionalFile.isPresent()) {
       Files file = optionalFile.get();
+      String fileType = file.getType();
+
+      file.setDownloadCount(file.getDownloadCount() + 1);
+      fileRepository.save(file);
 
       // Create a ByteArrayResource from the file content
       ByteArrayResource resource = new ByteArrayResource(file.getFiles());
@@ -287,7 +291,8 @@ public class Controller {
       // Set the response headers to indicate a file download
       HttpHeaders headers = new HttpHeaders();
       headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
-
+      headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+      headers.add("File-Type", fileType); // Add the file type to the response headers
       // Return the resource as a ResponseEntity with the appropriate headers
       return ResponseEntity.ok()
           .headers(headers)
@@ -310,7 +315,10 @@ public class Controller {
     if (fileOptional.isPresent()) {
       Files file = fileOptional.get();
       String fileType = file.getType();
+
       sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
+      file.setMailCount(file.getMailCount() + 1);
+      fileRepository.save(file);
       return new ModelAndView("landing");
 
       // code to send the file as an email attachment to the recipient

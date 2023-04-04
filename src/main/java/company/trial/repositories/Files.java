@@ -1,7 +1,5 @@
 package company.trial.repositories;
 
-import java.io.StringReader;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -86,37 +84,37 @@ public class Files {
     this.type = type;
   }
 
-  @Column(name = "mailCount")
-  private int mailCount;
+  @Column(name = "mailCount", nullable = false)
+  private Integer mailCount;
 
   /**
    * @return the mailCount
    */
-  public int getMailCount() {
+  public Integer getMailCount() {
     return mailCount;
   }
 
   /**
    * @param mailCount the mailCount to set
    */
-  public void setMailCount(int mailCount) {
+  public void setMailCount(Integer mailCount) {
     this.mailCount = mailCount;
   }
 
-  @Column(name = "downloadCount")
-  private int downloadCount;
+  @Column(name = "downloadCount", nullable = false)
+  private Integer downloadCount;
 
   /**
    * @return the downloadCount
    */
-  public int getDownloadCount() {
+  public Integer getDownloadCount() {
     return downloadCount;
   }
 
   /**
    * @param downloadCount the downloadCount to set
    */
-  public void setDownloadCount(int downloadCount) {
+  public void setDownloadCount(Integer downloadCount) {
     this.downloadCount = downloadCount;
   }
 
