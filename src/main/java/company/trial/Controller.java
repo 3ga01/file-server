@@ -291,13 +291,12 @@ public class Controller {
       // Set the response headers to indicate a file download
       HttpHeaders headers = new HttpHeaders();
       headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
-      headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-      headers.add("File-Type", fileType); // Add the file type to the response headers
-      // Return the resource as a ResponseEntity with the appropriate headers
+      headers.add(HttpHeaders.CONTENT_TYPE, fileType); // Add fileType to the response headers
+
       return ResponseEntity.ok()
           .headers(headers)
           .contentLength(resource.contentLength())
-          .contentType(MediaType.APPLICATION_OCTET_STREAM)
+          // .contentType(MediaType.APPLICATION_OCTET_STREAM)
           .body(resource);
     } else {
       // Handle the case where the file is not found
