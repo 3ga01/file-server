@@ -86,4 +86,38 @@ public class Files {
     this.type = type;
   }
 
+  @Column(name = "mailCount")
+  private int mailCount;
+
+  /**
+   * @return the mailCount
+   */
+  public int getMailCount() {
+    return mailCount;
+  }
+
+  /**
+   * @param mailCount the mailCount to set
+   */
+  public void setMailCount(int mailCount) {
+    this.mailCount = mailCount;
+  }
+
+  @Column(name = "downloadCount")
+  private int downloadCount;
+
+  /**
+   * @return the downloadCount
+   */
+  public int getDownloadCount() {
+    return downloadCount;
+  }
+
+  /**
+   * @param downloadCount the downloadCount to set
+   */
+  public void setDownloadCount(int downloadCount) {
+    this.downloadCount = downloadCount;
+  }
+
 }
