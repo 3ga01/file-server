@@ -36,8 +36,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import company.trial.repositories.Admin;
 import company.trial.repositories.AdminRepository;
 import company.trial.repositories.FileRepository;
@@ -305,24 +303,27 @@ public class Controller {
   // send email
   @PostMapping("/send")
   public ModelAndView sendFile(@RequestParam("name") String fileName,
-      @RequestParam("recepEmail") String recepEmail,
-      RedirectAttributes redirectAttributes) throws MessagingException {
+      @RequestParam("recepEmail") String recepEmail) throws MessagingException {
 
     Optional<Files> fileOptional = fileRepository.findByName(fileName);
 
     if (fileOptional.isPresent()) {
       Files file = fileOptional.get();
-      sendEmailWithAttachment(recepEmail, fileName, file.getFiles());
+      String fileType = file.getType();
+      sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
+      return new ModelAndView("landing");
+
       // code to send the file as an email attachment to the recipient
-      redirectAttributes.addFlashAttribute("successMessage", "File sent successfully");
     } else {
-      redirectAttributes.addFlashAttribute("errorMessage", "File not found");
+
+      return new ModelAndView("landing");
+
     }
 
-    return new ModelAndView("landing");
   }
 
-  private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData) throws MessagingException {
+  private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
+      throws MessagingException {
 
     MimeMessage message = mailSender.createMimeMessage();
 
@@ -338,7 +339,7 @@ public class Controller {
 
     // Create the attachment
     MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-    ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, "application/octet-stream");
+    ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, fileType);
     attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
     attachmentBodyPart.setFileName(fileName);
 
