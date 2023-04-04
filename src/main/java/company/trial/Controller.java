@@ -233,6 +233,8 @@ public class Controller {
       uploadedFile.setDescription(description);
       uploadedFile.setFiles(file.getBytes());
       uploadedFile.setType(type);
+      uploadedFile.setDownloadCount(0);
+      uploadedFile.setMailCount(0);
 
       // Save the file to the database
       fileRepository.save(uploadedFile);
