@@ -132,8 +132,9 @@ public class Controller {
   @PostMapping("/login")
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
+    String userName = foundUser.getName();
     if (foundUser != null && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
-      sendLoginAlert(foundUser.getEmail());
+      sendLoginAlert(foundUser.getEmail(), userName);
       List<Files> files = fileRepository.findAll();
       model.addAttribute("files", files);
       return new ModelAndView("landing");
@@ -144,17 +145,17 @@ public class Controller {
 
   }
 
-  private void sendLoginAlert(String email) throws MessagingException {
+  private void sendLoginAlert(String email, String userName) throws MessagingException {
     LocalDateTime currentDateTime = LocalDateTime.now();
     Locale locale = Locale.getDefault();
-    String countryName = locale.getDisplayCountry();
-    String osName = System.getProperty("os.name");
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(email);
-    message.setSubject("Account Login!!!");
-    message.setText(
-        "New login at " + currentDateTime + " by " + osName + " device from " + " " + countryName + "\n"
-            + "if this wasn't authorized by you,  please click on the link to reset your password.");
+    message.setSubject("File Server Account Login!!!");
+    message.setText("Dear " + userName + "\n"
+        + "\nWe wanted to let you know that someone recently signed in to your file server account on " + currentDateTime
+        + " from an unknown device or location.\n"
+        + "\nIf this was you, then you can disregard this message. However, if you did not sign in or you believe someone else may have accessed your account, please take immediate action to secure your account. This includes changing your password and reviewing your account activity.\n"
+        + "\nThank you for helping us keep your account safe.\n" + "\nBest regards,\n" + "File Server Team");
     mailSender.send(message);
   }
 
