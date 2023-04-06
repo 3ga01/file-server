@@ -61,6 +61,29 @@
 
       }
 
+      #loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+      .loading-circle {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
     @media screen and (max-width: 600px) {
       .container {
 				max-width: 100%;
@@ -72,7 +95,7 @@
 <body>
   <div class="container">
     <h1>User Login</h1>
-    <form action="/login" method="POST" th:object="${validusers}">
+    <form action="/login" method="POST" th:object="${validusers}" id="myForm">
       <label for="email"><b>Email</b></label>
       <input type="email" placeholder="Enter email" name="email" required>
 
@@ -86,6 +109,26 @@
        <button type="submit">Login</button>
               <p><a th:href="@{/adminLogin}">Login as Admin </a></p>
     </form>
+    <div id="loading" style="display: none;">
+  <div class="loading-circle"></div>
+</div>
+
   </div>
+
+  <script>
+    const form = document.querySelector('#myForm');
+const loading = document.querySelector('#loading');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  loading.style.display = 'block';
+  
+  // submit the form after showing the loading circle
+  setTimeout(() => {
+    form.submit();
+  }, 1000);
+});
+
+  </script>
 </body>
 </html>

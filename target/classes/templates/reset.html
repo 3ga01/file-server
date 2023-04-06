@@ -66,5 +66,21 @@
         <button type="submit">Reset Password</button>
       </form>
     </div>
+
+    <script>
+		// Get the password and confirm password fields
+const passwordField = document.getElementById("password");
+const confirmPasswordField = document.getElementById("confirm-password");
+
+// Add an event listener to the confirm password field to check if it matches the password field
+confirmPasswordField.addEventListener("input", function () {
+  if (confirmPasswordField.value !== passwordField.value) {
+    confirmPasswordField.setCustomValidity("Passwords do not match");
+  } else {
+    confirmPasswordField.setCustomValidity("");
+  }
+});
+
+	</script>
   </body>
 </html>
