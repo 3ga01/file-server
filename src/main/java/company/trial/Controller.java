@@ -362,4 +362,12 @@ public class Controller {
     mailSender.send(message);
   }
 
+  // view files
+  @PostMapping("/view")
+  public ModelAndView listProducts(Model model) {
+    List<Files> files = fileRepository.findAll();
+    model.addAttribute("files", files);
+    return new ModelAndView("viewFiles");
+  }
+
 }
