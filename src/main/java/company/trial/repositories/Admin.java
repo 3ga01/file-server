@@ -10,9 +10,21 @@ import javax.persistence.Table;
 @Table(name = "admin")
 public class Admin {
 
+  /**
+   *Admin id
+   */
   @Id
   @GeneratedValue
   private Long id;
+
+  @Column(name = "name", nullable = false)
+  private String name;
+
+  @Column(name = "email", nullable = false, unique = true)
+  private String email;
+
+  @Column(name = "password", nullable = false)
+  private String password;
 
   /**
    * @return the id
@@ -28,9 +40,6 @@ public class Admin {
     this.id = id;
   }
 
-  @Column(name = "name", nullable = false)
-  private String name;
-
   /**
    * @return the name
    */
@@ -45,9 +54,6 @@ public class Admin {
     this.name = name;
   }
 
-  @Column(name = "email", nullable = false, unique = true)
-  private String email;
-
   /**
    * @return the email
    */
@@ -61,9 +67,6 @@ public class Admin {
   public void setEmail(String email) {
     this.email = email;
   }
-
-  @Column(name = "password", nullable = false)
-  private String password;
 
   /**
    * @return the password

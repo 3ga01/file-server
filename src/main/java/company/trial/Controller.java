@@ -3,7 +3,6 @@ package company.trial;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 
@@ -36,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import company.trial.repositories.Admin;
 import company.trial.repositories.AdminRepository;
 import company.trial.repositories.FileRepository;
@@ -59,12 +59,20 @@ public class Controller {
   private JavaMailSender mailSender;
 
   // show Hom Page
+  /**
+   * @return the home page
+   */
   @GetMapping("/")
   public ModelAndView showHome() {
     return new ModelAndView("index");
   }
 
   // verify user
+  /**
+   * @param user 
+   * @param model
+   * @return
+   */
   @PostMapping("/verify")
   public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
     user = userRepository.findByVerificationCode(user.getVerificationCode());
@@ -83,6 +91,11 @@ public class Controller {
   }
 
   // add new users
+  /**
+   * @param user
+   * @return
+   * @throws MessagingException
+   */
   @PostMapping("/adduser")
   public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException {
     String userNme = user.getName();
@@ -95,33 +108,20 @@ public class Controller {
     return new ModelAndView("verify");
   }
 
-  private String generateVerificationCode() {
-    // Generate a random 6-digit code
-    return String.format("%06d", new Random().nextInt(999999));
-  }
-
-  private void sendVerificationEmail(String email, String verificationCode, String userName) throws MessagingException {
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setTo(email);
-    message.setSubject("Verify your file sever account");
-    message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
-        + "\nTo complete your account setup, please use the verification code below: \n" + "\nVerification Code: "
-        + verificationCode + "\n"
-        + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
-        + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
-        + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
-        + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
-        + "File Server team");
-    mailSender.send(message);
-  }
-
   // get signUp Page
+  /**
+   * @return
+   */
   @GetMapping("/signUp")
   public ModelAndView showPage() {
     return new ModelAndView("signUp");
   }
 
   // proceed to landing page after user signs up
+  /**
+   * @param model
+   * @return
+   */
   @PostMapping("/userPage")
   public ModelAndView newSignUp(Model model) {
     List<Files> files = fileRepository.findAll();
@@ -130,6 +130,10 @@ public class Controller {
   }
 
   // get login page on request
+  /**
+   * @param model
+   * @return
+   */
   @GetMapping("/login")
   public ModelAndView loginPage(Model model) {
     model.addAttribute("validusers", new User());
@@ -137,6 +141,12 @@ public class Controller {
   }
 
   // validate user on login
+  /**
+   * @param user
+   * @param model
+   * @return
+   * @throws MessagingException
+   */
   @PostMapping("/login")
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
@@ -153,28 +163,22 @@ public class Controller {
 
   }
 
-  private void sendLoginAlert(String email, String userName) throws MessagingException {
-    LocalDateTime currentDateTime = LocalDateTime.now();
-    Locale locale = Locale.getDefault();
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setTo(email);
-    message.setSubject("File Server Account Login!!!");
-    message.setText("Dear " + userName + "\n"
-        + "\nWe wanted to let you know that someone recently signed in to your file server account on "
-        + currentDateTime
-        + " from an unknown device or location.\n"
-        + "\nIf this was you, then you can disregard this message. However, if you did not sign in or you believe someone else may have accessed your account, please take immediate action to secure your account. This includes changing your password and reviewing your account activity.\n"
-        + "\nThank you for helping us keep your account safe.\n" + "\nBest regards,\n" + "File Server Team");
-    mailSender.send(message);
-  }
-
   // get reset user password page
+  /**
+   * @return
+   */
   @GetMapping("/reset")
   public ModelAndView showResetPasswordForm() {
     return new ModelAndView("reset");
   }
 
   // validate and update user password
+  /**
+   * @param email
+   * @param password
+   * @param model
+   * @return
+   */
   @PostMapping("/reset-password")
   public ModelAndView resetUserPassword(@RequestParam String email,
       @RequestParam String password, Model model) {
@@ -190,11 +194,18 @@ public class Controller {
   }
 
   // Admin
+  /**
+   * @return
+   */
   @GetMapping("/adminLogin")
   public ModelAndView showAdminLogin() {
     return new ModelAndView("adminLogin");
   }
 
+  /**
+   * @param admin
+   * @return
+   */
   @PostMapping("/adminLogin")
   public ModelAndView adminLogin(@ModelAttribute("validadmin") Admin admin) {
     Admin foundAdmin = adminRepository.findByEmail(admin.getEmail());
@@ -207,11 +218,20 @@ public class Controller {
 
   }
 
+  /**
+   * @return
+   */
   @GetMapping("/adminReset")
   public ModelAndView showAdminReset() {
     return new ModelAndView("adminReset");
   }
 
+  /**
+   * @param email
+   * @param password
+   * @param model
+   * @return
+   */
   @PostMapping("/resetAdmin-password")
   public ModelAndView resetAdminPasswordAndView(@RequestParam String email,
       @RequestParam String password,
@@ -227,12 +247,22 @@ public class Controller {
   }
 
   // upload page
+  /**
+   * @return
+   */
   @PostMapping("/uploadPage")
   public ModelAndView showUploadPage() {
     return new ModelAndView("uploadFile");
   }
 
   // upload
+  /**
+   * @param file
+   * @param name
+   * @param description
+   * @param type
+   * @return
+   */
   @PostMapping("/upload")
   public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
       @RequestParam("name") String name,
@@ -258,6 +288,11 @@ public class Controller {
   }
 
   // search
+  /**
+   * @param query
+   * @param model
+   * @return
+   */
   @PostMapping("/search")
   public ModelAndView search(@RequestParam(name = "query", required = false) String query, Model model) {
     List<Files> files;
@@ -270,7 +305,11 @@ public class Controller {
     return new ModelAndView("landing");
   }
 
-  // preview
+  // preview file
+  /**
+   * @param name
+   * @return
+   */
   @GetMapping("/preview/{name:.+}")
   public ResponseEntity<byte[]> getFile(@PathVariable String name) {
     Optional<Files> fileOptional = fileRepository.findByName(name);
@@ -286,6 +325,10 @@ public class Controller {
   }
 
   // dowload files
+  /**
+   * @param name
+   * @return
+   */
   @GetMapping("/download/{name:.+}")
   public ResponseEntity<Resource> downloadFile(@PathVariable String name) {
     Optional<Files> optionalFile = fileRepository.findByName(name);
@@ -317,6 +360,12 @@ public class Controller {
   }
 
   // send email
+  /**
+   * @param fileName
+   * @param recepEmail
+   * @return
+   * @throws MessagingException
+   */
   @PostMapping("/send")
   public ModelAndView sendFile(@RequestParam("name") String fileName,
       @RequestParam("recepEmail") String recepEmail) throws MessagingException {
@@ -341,6 +390,79 @@ public class Controller {
 
   }
 
+  // view files
+  /**
+   * @param model
+   * @return
+   */
+  @PostMapping("/view")
+  public ModelAndView listProducts(Model model) {
+    List<Files> files = fileRepository.findAll();
+    model.addAttribute("files", files);
+    return new ModelAndView("viewFiles");
+  }
+
+  
+  /**
+   * @return
+   */
+  private String generateVerificationCode() {
+    // Generate a random 6-digit code
+    return String.format("%06d", new Random().nextInt(999999));
+  }
+
+  // Emails
+
+  // Send verification email to user
+  /**
+   * @param email
+   * @param verificationCode
+   * @param userName
+   * @throws MessagingException
+   */
+  private void sendVerificationEmail(String email, String verificationCode, String userName) throws MessagingException {
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("Verify your file sever account");
+    message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
+        + "\nTo complete your account setup, please use the verification code below: \n" + "\nVerification Code: "
+        + verificationCode + "\n"
+        + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
+        + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
+        + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
+        + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
+        + "File Server team");
+    mailSender.send(message);
+  }
+
+  // send email when user logs in
+  /**
+   * @param email
+   * @param userName
+   * @throws MessagingException
+   */
+  private void sendLoginAlert(String email, String userName) throws MessagingException {
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(email);
+    message.setSubject("File Server Account Login!!!");
+    message.setText("Dear " + userName + "\n"
+        + "\nWe wanted to let you know that someone recently signed in to your file server account on "
+        + currentDateTime
+        + " from an unknown device or location.\n"
+        + "\nIf this was you, then you can disregard this message. However, if you did not sign in or you believe someone else may have accessed your account, please take immediate action to secure your account. This includes changing your password and reviewing your account activity.\n"
+        + "\nThank you for helping us keep your account safe.\n" + "\nBest regards,\n" + "File Server Team");
+    mailSender.send(message);
+  }
+
+  //Send files
+  /**
+   * @param toEmail
+   * @param fileName
+   * @param fileData
+   * @param fileType
+   * @throws MessagingException
+   */
   private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
       throws MessagingException {
 
@@ -370,14 +492,6 @@ public class Controller {
 
     // Send the message
     mailSender.send(message);
-  }
-
-  // view files
-  @PostMapping("/view")
-  public ModelAndView listProducts(Model model) {
-    List<Files> files = fileRepository.findAll();
-    model.addAttribute("files", files);
-    return new ModelAndView("viewFiles");
   }
 
 }
