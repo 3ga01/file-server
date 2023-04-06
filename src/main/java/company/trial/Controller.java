@@ -85,12 +85,13 @@ public class Controller {
   // add new users
   @PostMapping("/adduser")
   public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException {
+    String userNme = user.getName();
     String verificationCode = generateVerificationCode();
     user.setVerificationCode(verificationCode);
     user.setVerified(false);
     user.setVerificationCode(verificationCode);
     userRepository.save(user);
-    sendVerificationEmail(user.getEmail(), verificationCode);
+    sendVerificationEmail(user.getEmail(), verificationCode, userNme);
     return new ModelAndView("verify");
   }
 
@@ -99,11 +100,18 @@ public class Controller {
     return String.format("%06d", new Random().nextInt(999999));
   }
 
-  private void sendVerificationEmail(String email, String verificationCode) throws MessagingException {
+  private void sendVerificationEmail(String email, String verificationCode, String userName) throws MessagingException {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setTo(email);
-    message.setSubject("Verify your account");
-    message.setText("Your verification code is: " + verificationCode);
+    message.setSubject("Verify your file sever account");
+    message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
+        + "\nTo complete your account setup, please use the verification code below: \n" + "\nVerification Code: "
+        + verificationCode + "\n"
+        + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
+        + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
+        + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
+        + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
+        + "File Server team");
     mailSender.send(message);
   }
 
@@ -152,7 +160,8 @@ public class Controller {
     message.setTo(email);
     message.setSubject("File Server Account Login!!!");
     message.setText("Dear " + userName + "\n"
-        + "\nWe wanted to let you know that someone recently signed in to your file server account on " + currentDateTime
+        + "\nWe wanted to let you know that someone recently signed in to your file server account on "
+        + currentDateTime
         + " from an unknown device or location.\n"
         + "\nIf this was you, then you can disregard this message. However, if you did not sign in or you believe someone else may have accessed your account, please take immediate action to secure your account. This includes changing your password and reviewing your account activity.\n"
         + "\nThank you for helping us keep your account safe.\n" + "\nBest regards,\n" + "File Server Team");
