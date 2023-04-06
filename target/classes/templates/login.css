@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-  <title>Login Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-       body {
+   body {
       font-family: Arial, sans-serif;
       background-color: #f1f1f1;
     }
@@ -66,26 +60,3 @@
 				max-width: 100%;
       }
     }
-
-  </style>
-  </head>
-<body>
-  <div class="container">
-    <h1>User Login</h1>
-    <form action="/login" method="POST" th:object="${validusers}">
-      <label for="email"><b>Email</b></label>
-      <input type="email" placeholder="Enter email" name="email" required>
-
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-                <a th:href="@{/reset}">forgot password? </a>     
-      <p>
-          <a th:href="@{/signUp}">Not a user yet? SignUp</a>
-
-      </p>
-       <button type="submit">Login</button>
-              <p><a th:href="@{/adminLogin}">Login as Admin </a></p>
-    </form>
-  </div>
-</body>
-</html>
