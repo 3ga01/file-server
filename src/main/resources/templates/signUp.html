@@ -69,7 +69,7 @@
 		<h1>Sign Up</h1>
 		<div class="container">
 			<label for="username"><b>Username</b></label>
-   <input type="text" name = "name" required placeholder="Enter Name" />		
+   <input type="text" name = "name" pattern="[a-zA-Z0-9_-]{3,16}" title="Username must be between 3 and 16 characters, and can only contain letters, numbers, underscores, and hyphens." required placeholder="Enter Name" />		
 			<label for="email"><b>Email</b></label>
 			<input type="email" placeholder="Enter Email" name = "email" required>
 		
@@ -99,16 +99,7 @@ confirmPasswordField.addEventListener("input", function () {
   }
 });
 
-passwordField.addEventListener("input", function () {
-  const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  if (pattern.test(passwordField.value)) {
-    passwordField.setCustomValidity("");
-  } else {
-    passwordField.setCustomValidity("Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long.");
-  }
-});
-
+ 
 	</script>
 
 </body>
