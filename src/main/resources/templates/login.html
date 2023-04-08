@@ -9,6 +9,12 @@
       background-color: #f1f1f1;
     }
 
+    .error-message {
+  color: red;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
     .container {
       margin: auto;
       width: 90%;
@@ -73,19 +79,22 @@
 <body>
   <div class="container">
     <h1>User Login</h1>
-    <p th:text ="${message}"></p>
+    <p th:text ="${message}" class="error-message"></p>
     <form action="/login" method="POST" th:object="${validusers}" id="myForm">
       <label for="email"><b>Email</b></label>
-      <input type="email" placeholder="Enter email" name="email" required>
+      <input type="email" placeholder="Enter email" name="email" title="Please enter a valid email address." required>
 
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Enter Password" name="password" 
+      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long." required>
+
                 <a th:href="@{/reset}">forgot password? </a>     
       <p>
           <a th:href="@{/signUp}">Not a user yet? SignUp</a>
-
       </p>
+
        <button type="submit">Login</button>
+       
               <p><a th:href="@{/adminLogin}">Login as Admin </a></p>
     </form>
    

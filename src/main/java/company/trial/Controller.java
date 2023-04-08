@@ -149,7 +149,9 @@ public class Controller {
   @PostMapping("/login")
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
-    if (foundUser != null && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
+    String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    if (foundUser != null && user.getPassword().matches(pattern) && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
+      
       String userName = foundUser.getName();
       sendLoginAlert(foundUser.getEmail(), userName);
       List<Files> files = fileRepository.findAll();
