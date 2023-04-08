@@ -99,6 +99,16 @@ confirmPasswordField.addEventListener("input", function () {
   }
 });
 
+passwordField.addEventListener("input", function () {
+  const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  if (pattern.test(passwordField.value)) {
+    passwordField.setCustomValidity("");
+  } else {
+    passwordField.setCustomValidity("Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long.");
+  }
+});
+
 	</script>
 
 </body>
