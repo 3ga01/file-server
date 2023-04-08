@@ -135,8 +135,7 @@ public class Controller {
    * @return
    */
   @GetMapping("/login")
-  public ModelAndView loginPage(Model model) {
-    model.addAttribute("validusers", new User());
+  public ModelAndView loginPage() {
     return new ModelAndView("login");
   }
 
