@@ -6,7 +6,13 @@ This is a file server application built with Spring Boot that allows users to vi
 
 File preview: Users can preview files on the server using a simple web interface. The app supports multiple file formats, including images, videos, audio files, and documents.
 
-File Download: Users can download files from the server using a secure link. The app generates a unique download link for each file, which expires after a specified time period.
+File Download: Users can download files from the server by clicking on the download link. 
+
+Send Emails: Users can send files by adding recepient email address.
+
+Upload Files: Admins can upload files with the file name and description
+
+View Files: Admins can view download and sent email count.
 
 User Authentication: The app provides a secure login mechanism that verifies user credentials against a database. Only authenticated users can access the file server.
 
