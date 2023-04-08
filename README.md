@@ -37,3 +37,6 @@ To run the app locally, follow these steps:
 
 
     This project was inspired by the Spring Boot File Upload and Download .
+    
+![Screenshot from 2023-04-08 01-36-46](https://user-images.githubusercontent.com/107252455/230697800-40c65f9a-9dfe-4eb7-b8e5-6b3f77c23a5d.png)
+
