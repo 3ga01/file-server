@@ -69,8 +69,8 @@ public class Controller {
 
   // verify user
   /**
-   * @param user 
-   * @param model
+   * @param user
+   * @param modelsignUp
    * @return
    */
   @PostMapping("/verify")
@@ -149,14 +149,17 @@ public class Controller {
   @PostMapping("/login")
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
-    String userName = foundUser.getName();
     if (foundUser != null && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
+      String userName = foundUser.getName();
       sendLoginAlert(foundUser.getEmail(), userName);
       List<Files> files = fileRepository.findAll();
       model.addAttribute("files", files);
+
       return new ModelAndView("landing");
 
-    } else {
+    } 
+    else {
+     model.addAttribute("message", "Login Failed!!! Try Again");
       return new ModelAndView("login");
     }
 
@@ -401,7 +404,6 @@ public class Controller {
     return new ModelAndView("viewFiles");
   }
 
-  
   /**
    * @return
    */
@@ -454,7 +456,7 @@ public class Controller {
     mailSender.send(message);
   }
 
-  //Send files
+  // Send files
   /**
    * @param toEmail
    * @param fileName

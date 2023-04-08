@@ -58,10 +58,8 @@
 
       form{
         			padding: 16px;
-
       }
 
- 
 
 
     @media screen and (max-width: 600px) {
@@ -75,6 +73,7 @@
 <body>
   <div class="container">
     <h1>User Login</h1>
+    <p th:text ="${message}"></p>
     <form action="/login" method="POST" th:object="${validusers}" id="myForm">
       <label for="email"><b>Email</b></label>
       <input type="email" placeholder="Enter email" name="email" required>
