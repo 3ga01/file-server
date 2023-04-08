@@ -17,10 +17,15 @@ This is a file server application built with Spring Boot that allows users to vi
     Java 8
     Spring Boot 2.5.0
     MySQL 8.0.23
-    Thymeleaf
+    Thymeleaf 2.5.11
     Bootstrap
-    jQuery
+    Spring-Boot-devtools
     Apache Commons FileUpload
+    mysql-connector-java
+    jakarta.platform
+    spring-data-jpa
+    spring-boot-maven-plugin
+    javax.mail
 	html
 	css
 
