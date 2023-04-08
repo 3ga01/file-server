@@ -71,10 +71,10 @@
 			<label for="username"><b>Username</b></label>
    <input type="text" name = "name" pattern="[a-zA-Z0-9_-]{3,16}" title="Username must be between 3 and 16 characters, and can only contain letters, numbers, underscores, and hyphens." required placeholder="Enter Name" />		
 			<label for="email"><b>Email</b></label>
-			<input type="email" placeholder="Enter Email" name = "email" required>
+			<input type="email" placeholder="Enter Email" name = "email" pattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" title="Please enter a valid email address." required>
 		
 			<label for="psw"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name = "password" required id="password">
+			<input type="password" placeholder="Enter Password" name = "password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long." id="password">
 		
 			<label for="psw-repeat"><b>Repeat Password</b></label>
 			<input type="password" placeholder="Repeat Password" name="password-repeat" required id="confirm-password">
@@ -99,16 +99,7 @@ confirmPasswordField.addEventListener("input", function () {
   }
 });
 
-passwordField.addEventListener("input", function () {
-  const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  if (pattern.test(passwordField.value)) {
-    passwordField.setCustomValidity("");
-  } else {
-    passwordField.setCustomValidity("Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long.");
-  }
-});
-
+ 
 	</script>
 
 </body>
