@@ -1,8 +1,8 @@
-#File Server App with Spring Boot
+File Server App with Spring Boot
 
 This is a file server application built with Spring Boot that allows users to view, download, and preview files from a remote server. The app provides a secure, scalable, and efficient way to share files with other users.
 
-#Features
+Features
 
     File preview: Users can preview files on the server using a simple web interface. The app supports multiple file formats, including images, videos, audio files, and documents.
 
@@ -12,7 +12,7 @@ This is a file server application built with Spring Boot that allows users to vi
 
     Access Control: The app provides role-based access control, allowing administrators to restrict user access to specific files and folders.
 
-#Technologies Used
+Technologies Used
 
     Java 8
     Spring Boot 2.5.0
@@ -21,8 +21,10 @@ This is a file server application built with Spring Boot that allows users to vi
     Bootstrap
     jQuery
     Apache Commons FileUpload
+	html
+	css
 
-#Getting Started
+Getting Started
 
 To run the app locally, follow these steps:
 
