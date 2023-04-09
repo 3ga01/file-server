@@ -97,15 +97,29 @@ public class Controller {
    * @throws MessagingException
    */
   @PostMapping("/adduser")
-  public ModelAndView saveUser(@ModelAttribute("users") User user) throws MessagingException {
+  public ModelAndView saveUser(@ModelAttribute("users") User user, Model model) throws MessagingException {
+    String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    String e_pattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    String n_pattern = "^[A-Za-z0-9_-]{3,15}$";
+
     String userNme = user.getName();
     String verificationCode = generateVerificationCode();
-    user.setVerificationCode(verificationCode);
-    user.setVerified(false);
-    user.setVerificationCode(verificationCode);
-    userRepository.save(user);
-    sendVerificationEmail(user.getEmail(), verificationCode, userNme);
-    return new ModelAndView("verify");
+    String email = user.getEmail();
+    String password = user.getPassword();
+
+    if (email.matches(e_pattern) && password.matches(pattern) && userNme.matches(n_pattern)) {
+      user.setVerificationCode(verificationCode);
+      user.setVerified(false);
+      user.setVerificationCode(verificationCode);
+      userRepository.save(user);
+      sendVerificationEmail(user.getEmail(), verificationCode, userNme);
+      return new ModelAndView("verify");
+
+    } 
+    else {
+      model.addAttribute("message", "Login Failed!!! Try Again");
+      return new ModelAndView("");
+    }
   }
 
   // get signUp Page
@@ -150,8 +164,11 @@ public class Controller {
   public ModelAndView login(@ModelAttribute("validusers") User user, Model model) throws MessagingException {
     User foundUser = userRepository.findByEmail(user.getEmail());
     String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-    if (foundUser != null && user.getPassword().matches(pattern) && foundUser.getPassword().equals(user.getPassword()) && foundUser.isVerified() == true) {
-      
+    String e_pattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    if (foundUser != null && user.getPassword().matches(pattern) &&
+        user.getEmail().matches(e_pattern) && foundUser.getPassword().equals(user.getPassword())
+        && foundUser.isVerified() == true) {
+
       String userName = foundUser.getName();
       sendLoginAlert(foundUser.getEmail(), userName);
       List<Files> files = fileRepository.findAll();
@@ -159,9 +176,8 @@ public class Controller {
 
       return new ModelAndView("landing");
 
-    } 
-    else {
-     model.addAttribute("message", "Login Failed!!! Try Again");
+    } else {
+      model.addAttribute("message", "Login Failed!!! Try Again");
       return new ModelAndView("login");
     }
 
