@@ -115,10 +115,9 @@ public class Controller {
       sendVerificationEmail(user.getEmail(), verificationCode, userNme);
       return new ModelAndView("verify");
 
-    } 
-    else {
-      model.addAttribute("message", "Login Failed!!! Try Again");
-      return new ModelAndView("");
+    } else {
+      model.addAttribute("message", "SignUp Failed!!! Try Again");
+      return new ModelAndView("signUp");
     }
   }
 
