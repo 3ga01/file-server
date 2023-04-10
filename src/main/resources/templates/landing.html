@@ -13,6 +13,7 @@
         background-color: #333;
         color: #fff;
         padding: 20px;
+        text-align: center;
       }
       .container {
         max-width: 800px;
@@ -30,6 +31,23 @@
         flex-basis: 100%;
         margin-bottom: 10px;
       }
+
+      .search {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .inner {
+        display: flex;
+        flex-direction: column;
+      }
+
+       a {
+        text-decoration: none;
+        color: #0b70b4;
+      }
       @media only screen and (min-width: 768px) {
         .col {
           flex-basis: calc(50% - 10px);
@@ -42,9 +60,9 @@
       }
       input[type="text"] {
         padding: 10px;
-        border: none;
+        border: 1px solid gray;
         border-radius: 5px;
-        width: 80%;
+        width: 75%;
         box-sizing: border-box;
         margin-bottom: 20px;
       }
@@ -70,6 +88,34 @@
         color: #777;
         line-height: 1.5;
       }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      form input[type="email"] {
+        padding: 10px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 70%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+      }
+      form button[type="submit"] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #333;
+        color: #fff;
+        width: 20%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      form a {
+        margin-bottom: 20px;
+        color: #333;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -77,7 +123,7 @@
       <h1>Responsive Feed Page</h1>
     </header>
     <div class="container">
-      <form method="post" action="/search">
+      <form method="post" action="/search" class="search">
         <input type="text" placeholder="Search..." name="query" />
         <button type="submit">Search</button>
       </form>
@@ -88,18 +134,20 @@
           </a>
           <p th:text="${files.description}"></p>
         </div>
-        <form th:action="@{/send}" method="post">
-          <input
-            type="email"
-            name="recepEmail"
-            placeholder="Enter recepient email"
-            required
-          />
-          <input type="hidden" name="name" th:value="${files.name}" />
-          <button type="submit">send</button>
-        </form>
+        <div class="inner">
+          <form th:action="@{/send}" method="post" class="search">
+            <input
+              type="email"
+              name="recepEmail"
+              placeholder="Enter recepient email"
+              required
+            />
+            <input type="hidden" name="name" th:value="${files.name}" />
+            <button type="submit">send</button>
+          </form>
 
-        <a th:href="@{/download/{name}(name=${files.name})}">Download</a>
+          <a th:href="@{/download/{name}(name=${files.name})}">Download</a>
+        </div>
       </div>
     </div>
   </body>

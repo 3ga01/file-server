@@ -70,10 +70,18 @@
   <body>
     <div class="container">
       <h1>Enter Verification Code</h1>
-      <p>Please enter the verification code sent to your email address below.</p>
+      <p>
+        Please enter the verification code sent to your email address below.
+      </p>
       <form action="/verify" method="post" th:object="${verify}">
         <label for="code">Verification Code</label>
-        <input type="text" id="code" name="verificationCode" placeholder="Enter your verification code" required />
+        <input
+          type="text"
+          id="code"
+          name="verificationCode"
+          placeholder="Enter your verification code"
+          required
+        />
         <button type="submit">Verify Code</button>
       </form>
     </div>
