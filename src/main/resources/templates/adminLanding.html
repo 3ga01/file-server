@@ -1,58 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Landing Page </title>
-	<style>
-		/* Basic styles for the page */
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <style>
+      /* Basic styles for the page */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-		h1 {
-			text-align: center;
-			margin: 50px 0;
-		}
+      h1 {
+        text-align: center;
+        margin: 50px 0;
+      }
 
-		.container {
-			max-width: 800px;
-			margin: 0 auto;
-			padding: 0 20px;
-		}
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-		/* Styles for the buttons */
-		.button {
-			display: inline-block;
-			padding: 10px 20px;
-			background-color: #333;
-			color: #fff;
-			border-radius: 5px;
-			text-decoration: none;
-			margin-right: 10px;
-			margin-bottom: 10px;
-		}
+      /* Styles for the buttons */
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
 
-		.button:hover {
-			background-color: #006D9C;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<h1>Landing Page</h1>
-		<div>
-			<form action="/uploadPage" method="post">
-				  <button type="submit" class="button">Upload File</button>
+      .button:hover {
+        background-color: #006d9c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Landing Page</h1>
+      <div>
+        <form action="/uploadPage" method="post">
+          <button type="submit" class="button">Upload File</button>
+        </form>
 
-			</form>
-			
-			<form action="/view" method="post">
-				<button type="submit" class="button">View files</button>
-			</form>
-		</div>
-	</div>
-</body>
+        <form action="/view" method="post">
+          <button type="submit" class="button">View files</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
