@@ -138,7 +138,7 @@
               <a th:href="@{/preview/{name}(name=${files.name})}">
                 <img
                   th:src="@{/preview/{name}(name=${files.name})}"
-                  style="max-width: 90%; height: auto"
+                  style="max-width: 100%; height: auto"
                 />
               </a>
             </div>
@@ -164,8 +164,8 @@
             <div th:if="${files.type == 'video/mp4'}">
               <video
                 controls
-                width="100px"
-                height="60%"
+                width="90%"
+                height="30%"
                 th:src="@{/preview/{name}(name=${files.name})}"
                 autoplay
               >
