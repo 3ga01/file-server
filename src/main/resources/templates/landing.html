@@ -138,15 +138,15 @@
               <div th:if="${files.type == 'image/jpeg'}">
                 <img
                   th:src="@{/preview/{name}(name=${files.name})}"
-                  style="max-width: 70%; height: 60%"
+                  style="max-width: 70%; height:auto"
                 />
               </div>
               <div th:if="${files.type == 'application/pdf'}">
                 <object
                   th:data="@{/preview/{name}(name=${files.name})}"
                   type="application/pdf"
-                  width="100%"
-                  height="600px"
+                  width="70%"
+                  height="auto"
                 >
                   <p>PDF Preview</p>
                 </object>
