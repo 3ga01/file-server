@@ -48,6 +48,9 @@
         text-decoration: none;
         color: #0b70b4;
       }
+      .preview{
+        width: fit-content;
+      }
       @media only screen and (min-width: 768px) {
         .col {
           flex-basis: calc(50% - 10px);
@@ -133,7 +136,7 @@
             <h2 th:text="${files.name}"></h2>
           </a>
           <a th:href="@{/preview/{name}(name=${files.name})}">
-            <div>
+            <div class="preview">
               <div th:if="${files.type == 'image/jpeg'}">
                 <img th:src="@{/preview/{name}(name=${files.name})}" />
               </div>
