@@ -165,7 +165,7 @@
             <div th:if="${files.type == 'video/mp4'}">
               <video
                 controls
-                style="max-width: 100%"
+                style="max-width: 100%; max-height: fit-content;"
                 th:src="@{/preview/{name}(name=${files.name})}"
                 autoplay
               >
