@@ -132,6 +132,7 @@
         <div class="col">
           <a th:href="@{/preview/{name}(name=${files.name})}">
             <h2 th:text="${files.name}"></h2>
+            <p th:text="${files.description}"></p>
           </a>
           <div class="preview">
             <div th:if="${files.type == 'image/jpeg'}">
@@ -165,7 +166,7 @@
               <video
                 controls
                 width="90%"
-                height="30%"
+                height="200px"
                 th:src="@{/preview/{name}(name=${files.name})}"
                 autoplay
               >
@@ -173,8 +174,6 @@
               </video>
             </div>
           </div>
-
-          <p th:text="${files.description}"></p>
         </div>
         <div class="inner">
           <form th:action="@{/send}" method="post" class="search">
