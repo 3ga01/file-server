@@ -49,7 +49,7 @@
         color: #0b70b4;
       }
 
-      @media only screen and (min-width: 768px) {
+      @media only screen and (min-width: 850px) {
         .col {
           flex-basis: calc(50% - 10px);
           margin-right: 20px;
@@ -164,8 +164,8 @@
             </div>
             <div th:if="${files.type == 'video/mp4'}">
               <video
-              controls
-                style="max-width: 100%; "
+                controls
+                style="max-width: 100%"
                 th:src="@{/preview/{name}(name=${files.name})}"
                 autoplay
               >
