@@ -138,7 +138,7 @@
               <div th:if="${files.type == 'image/jpeg'}">
                 <img
                   th:src="@{/preview/{name}(name=${files.name})}"
-                  style="max-width: 70%; height: auto"
+                  style="max-width: 70%; height: 60%"
                 />
               </div>
               <div th:if="${files.type == 'application/pdf'}">
