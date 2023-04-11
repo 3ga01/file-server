@@ -164,7 +164,6 @@
             </div>
             <div th:if="${files.type == 'video/mp4'}">
               <video
-                controls
                 width="90%"
                 height="200px"
                 th:src="@{/preview/{name}(name=${files.name})}"
