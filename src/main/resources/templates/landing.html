@@ -138,7 +138,7 @@
               <div th:if="${files.type == 'image/jpeg'}">
                 <img
                   th:src="@{/preview/{name}(name=${files.name})}"
-                  style="max-width: 70%; height:auto"
+                  style="max-width: 70%; height: auto"
                 />
               </div>
               <div th:if="${files.type == 'application/pdf'}">
@@ -146,7 +146,7 @@
                   th:data="@{/preview/{name}(name=${files.name})}"
                   type="application/pdf"
                   width="70%"
-                  height="auto"
+                  height="70%"
                 >
                   <p>PDF Preview</p>
                 </object>
@@ -159,7 +159,7 @@
               <div th:if="${files.type == 'video/mp4'}">
                 <video
                   controls
-                  width="100%"
+                  width="70%"
                   th:src="@{/preview/{name}(name=${files.name})}"
                 >
                   <p>Your browser does not support the video element.</p>
