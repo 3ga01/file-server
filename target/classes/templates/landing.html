@@ -16,7 +16,7 @@
         text-align: center;
       }
       .container {
-        max-width: 800px;
+        max-width: 100%;
         margin: 0 auto;
         padding: 20px;
       }
@@ -44,11 +44,12 @@
         flex-direction: column;
       }
 
-       a {
+      a {
         text-decoration: none;
         color: #0b70b4;
       }
-      @media only screen and (min-width: 768px) {
+
+      @media only screen and (min-width: 600px) {
         .col {
           flex-basis: calc(50% - 10px);
           margin-right: 20px;
@@ -131,38 +132,47 @@
         <div class="col">
           <a th:href="@{/preview/{name}(name=${files.name})}">
             <h2 th:text="${files.name}"></h2>
+            <p th:text="${files.description}"></p>
           </a>
-           <div>
-      <div th:if="${files.type == 'image/jpeg'}">
-        <img th:src="@{/preview/{name}(name=${files.name})}" />
-      </div>
-      <div th:if="${files.type == 'application/pdf'}">
-        <object
-          th:data="@{/preview/{name}(name=${files.name})}"
-          type="application/pdf"
-          width="100%"
-          height="600px"
-        >
-          <p>PDF Preview</p>
-        </object>
-      </div>
-      <div th:if="${files.type == 'audio/mpeg'}">
-        <audio controls th:src="@{/preview/{name}(name=${files.name})}">
-          <p>Your browser does not support the audio element.</p>
-        </audio>
-      </div>
-      <div th:if="${files.type == 'video/mp4'}">
-        <video
-          controls
-          width="100%"
-          th:src="@{/preview/{name}(name=${files.name})}"
-        >
-          <p>Your browser does not support the video element.</p>
-        </video>
-      </div>
-    </div>
-  
-          <p th:text="${files.description}"></p>
+          <div class="preview">
+            <div th:if="${files.type == 'image/jpeg'}">
+              <a th:href="@{/preview/{name}(name=${files.name})}">
+                <img
+                  th:src="@{/preview/{name}(name=${files.name})}"
+                  style="width: 100%; height: 400px"
+                />
+              </a>
+            </div>
+            <div th:if="${files.type == 'application/pdf'}">
+              <a th:href="@{/preview/{name}(name=${files.name})}">
+                <object
+                  th:data="@{/preview/{name}(name=${files.name})}"
+                  type="application/pdf"
+                  width="100%"
+                  height="400px"
+                >
+                  <p>PDF Preview</p>
+                </object>
+              </a>
+            </div>
+            <div th:if="${files.type == 'audio/mpeg'}">
+              <a th:href="@{/preview/{name}(name=${files.name})}">
+                <audio controls th:src="@{/preview/{name}(name=${files.name})}">
+                  <p>Your browser does not support the audio element.</p>
+                </audio>
+              </a>
+            </div>
+            <div th:if="${files.type == 'video/mp4'}">
+              <video
+                controls
+                style="width: 100%; height: 400px"
+                th:src="@{/preview/{name}(name=${files.name})}"
+                autoplay
+              >
+                <p>Your browser does not support the video element.</p>
+              </video>
+            </div>
+          </div>
         </div>
         <div class="inner">
           <form th:action="@{/send}" method="post" class="search">

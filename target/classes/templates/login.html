@@ -3,6 +3,11 @@
   <head>
     <title>User Login Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -25,7 +30,8 @@
       }
 
       input[type="password"],
-      input[type="email"] {
+      input[type="email"],
+      input[type="text"] {
         width: 100%;
         padding: 12px 0px;
         margin: 8px 0;
@@ -64,6 +70,18 @@
         padding: 16px;
       }
 
+      .input-icon {
+        position: relative;
+      }
+
+      .input-icon i {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        right: 5px;
+        cursor: pointer;
+      }
+
       @media screen and (max-width: 600px) {
         .container {
           max-width: 100%;
@@ -86,14 +104,17 @@
         />
 
         <label for="password"><b>Password</b></label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="password"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-          title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
-          required
-        />
+        <div class="input-icon">
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
+            required
+          />
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
 
         <a th:href="@{/reset}">forgot password? </a>
         <p>
@@ -105,5 +126,17 @@
         <p><a th:href="@{/adminLogin}">Login as Admin </a></p>
       </form>
     </div>
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector('input[name="password"]');
+
+      togglePassword.addEventListener("click", function () {
+        const type =
+          password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+        this.classList.toggle("bi-eye-slash");
+      });
+    </script>
   </body>
 </html>
