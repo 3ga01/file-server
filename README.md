@@ -61,6 +61,9 @@ This project was inspired by the Spring Boot File Upload and Download .
 
 ![Screenshot from 2023-04-11 22-54-10](https://user-images.githubusercontent.com/107252455/231306348-bc906436-f739-4367-9c34-181e10c891d3.png)
 
+![Screenshot from 2023-04-12 02-46-36](https://user-images.githubusercontent.com/107252455/231335135-6aed60f5-1d9b-4472-a212-48b4b5b5ba08.png)
+
+
 
 
 
