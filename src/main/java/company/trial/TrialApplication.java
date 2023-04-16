@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import company.trial.repositories.UserRepository;
 
-//import company.trial.User.UserController;
-
 @SpringBootApplication
 @ComponentScan(basePackages = "company.trial.repositories")
 @EnableJpaRepositories(basePackages = "company.trial.repositories")
