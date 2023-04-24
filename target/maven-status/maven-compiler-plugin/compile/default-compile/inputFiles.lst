@@ -1,8 +1,8 @@
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/Controller.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/AdminRepository.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/Admin.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/UserRepository.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/FileRepository.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/TrialApplication.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/User.java
-/media/emmanuel/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/Files.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/TrialApplication.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/FileRepository.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/Files.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/User.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/Controller.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/UserRepository.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/Admin.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/AdminRepository.java

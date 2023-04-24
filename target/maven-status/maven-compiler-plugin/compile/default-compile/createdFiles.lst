@@ -1,7 +1,7 @@
-company/trial/repositories/Admin.class
-company/trial/repositories/FileRepository.class
 company/trial/Controller.class
+company/trial/repositories/Admin.class
 company/trial/repositories/User.class
+company/trial/repositories/FileRepository.class
 company/trial/repositories/AdminRepository.class
 company/trial/repositories/Files.class
 company/trial/TrialApplication.class
