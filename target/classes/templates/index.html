@@ -3,55 +3,11 @@
   <head>
     <title>Home Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        background-color: #f2f2f2;
-      }
-
-      .title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .btn {
-        display: block;
-        width: 100%;
-        max-width: 300px;
-        padding: 1rem;
-        margin: 1rem;
-        border: none;
-        border-radius: 5px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #333;
-        cursor: pointer;
-        transition: background-color 0.2s ease-in-out;
-      }
-
-      .btn:hover {
-        background-color: #0069d9;
-      }
-
-      h1 {
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
     <div class="container">
-      <h1 class="title">Welcome to f-server</h1>
+      <h1 class="title">Welcome to file server</h1>
       <a th:href="@{/login}" class="btn">Login</a>
       <a th:href="@{/signUp}" class="btn">Sign Up</a>
     </div>
