@@ -4,41 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
-    <style>
-      /* Basic styles for the page */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      h1 {
-        text-align: center;
-        margin: 50px 0;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      /* Styles for the buttons */
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #333;
-        color: #fff;
-        border-radius: 5px;
-        text-decoration: none;
-        margin-right: 10px;
-        margin-bottom: 10px;
-      }
-
-      .button:hover {
-        background-color: #006d9c;
-      }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/adminLanding.css}">
   </head>
   <body>
     <div class="container">
