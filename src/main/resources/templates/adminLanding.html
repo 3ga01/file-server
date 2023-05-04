@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landing Page</title>
-    <link rel="stylesheet" th:href="@{/css/adminLanding.css}">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Landing Page</h1>
-      <div>
-        <form action="/uploadPage" method="post">
-          <button type="submit" class="button">Upload File</button>
-        </form>
 
-        <form action="/view" method="post">
-          <button type="submit" class="button">View files</button>
-        </form>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page</title>
+  <link rel="stylesheet" th:href="@{/css/adminLanding.css}">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Landing Page</h1>
+    <div>
+      <form action="/uploadPage" method="post">
+        <button type="submit" class="button">Upload File</button>
+      </form>
+
+      <form action="/view" method="post">
+        <button type="submit" class="button">View files</button>
+      </form>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
