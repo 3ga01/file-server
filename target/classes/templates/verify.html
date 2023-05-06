@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enter Verification Code</title>
+    <link rel="stylesheet" th:href="@{/css/verify.css}" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enter Verification Code</title>
-  <link rel="stylesheet" th:href="@{/css/verify.css}">
-
-</head>
-
-<body>
-  <div class="container">
-    <h1>Enter Verification Code</h1>
-    <p>
-      Please enter the verification code sent to your email address below.
-    </p>
-    <form action="/verify" method="post" th:object="${verify}">
-      <label for="code">Verification Code</label>
-      <input type="text" id="code" name="verificationCode" placeholder="Enter your verification code" required />
-      <button type="submit">Verify Code</button>
-    </form>
-  </div>
-</body>
-
+  <body>
+    <div class="container">
+      <h1>Enter Verification Code</h1>
+      <p>
+        Please enter the verification code sent to your email address below.
+      </p>
+      <form action="/verify" method="post" th:object="${verify}">
+        <label for="code">Verification Code</label>
+        <input
+          type="text"
+          id="code"
+          name="verificationCode"
+          placeholder="Enter your verification code"
+          required
+        />
+        <button type="submit">Verify Code</button>
+      </form>
+    </div>
+  </body>
 </html>

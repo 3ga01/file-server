@@ -1,62 +1,78 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/reset.css}" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reset Password</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <body>
+    <div class="container">
+      <h1>Reset Password</h1>
+      <form action="/reset-password" method="post">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email address"
+          required
+        />
+        <label for="password">New Password</label>
+        <div class="input-icon">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your new password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
+            required
+          />
+          <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          placeholder="Confirm your new password"
+          required
+        />
+        <button type="submit">Reset Password</button>
+      </form>
+    </div>
 
-</head>
+    <script>
+      // Get the password and confirm password fields
+      const passwordField = document.getElementById("password");
+      const confirmPasswordField = document.getElementById("confirm-password");
 
-<body>
-  <div class="container">
-    <h1>Reset Password</h1>
-    <form action="/reset-password" method="post">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Enter your email address" required />
-      <label for="password">New Password</label>
-      <div class="input-icon">
-        <input type="password" id="password" name="password" placeholder="Enter your new password"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-          title="Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character, and be at least 8 characters long."
-          required />
-        <i class="bi bi-eye-slash" id="togglePassword"></i>
-      </div>
-      <label for="confirm-password">Confirm Password</label>
-      <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your new password"
-        required />
-      <button type="submit">Reset Password</button>
-    </form>
-  </div>
+      // Add an event listener to the confirm password field to check if it matches the password field
+      confirmPasswordField.addEventListener("input", function () {
+        if (confirmPasswordField.value !== passwordField.value) {
+          confirmPasswordField.setCustomValidity("Passwords do not match");
+        } else {
+          confirmPasswordField.setCustomValidity("");
+        }
+      });
 
-  <script>
-    // Get the password and confirm password fields
-    const passwordField = document.getElementById("password");
-    const confirmPasswordField = document.getElementById("confirm-password");
+      //password visibility added
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector('input[name="password"]');
 
-    // Add an event listener to the confirm password field to check if it matches the password field
-    confirmPasswordField.addEventListener("input", function () {
-      if (confirmPasswordField.value !== passwordField.value) {
-        confirmPasswordField.setCustomValidity("Passwords do not match");
-      } else {
-        confirmPasswordField.setCustomValidity("");
-      }
-    });
-
-    //password visibility added
-    const togglePassword = document.querySelector("#togglePassword");
-    const password = document.querySelector('input[name="password"]');
-
-    togglePassword.addEventListener("click", function () {
-      const type =
-        password.getAttribute("type") === "password" ? "text" : "password";
-      password.setAttribute("type", type);
-      this.classList.toggle("bi-eye");
-      this.classList.toggle("bi-eye-slash");
-    });
-  </script>
-</body>
-
+      togglePassword.addEventListener("click", function () {
+        const type =
+          password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+        this.classList.toggle("bi-eye");
+        this.classList.toggle("bi-eye-slash");
+      });
+    </script>
+  </body>
 </html>
