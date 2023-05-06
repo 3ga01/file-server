@@ -108,12 +108,24 @@ public class Controller {
     String password = user.getPassword();
 
     if (email.matches(e_pattern) && password.matches(pattern) && userNme.matches(n_pattern)) {
-      user.setVerificationCode(verificationCode);
-      user.setVerified(false);
-      user.setVerificationCode(verificationCode);
-      userRepository.save(user);
-      sendVerificationEmail(user.getEmail(), verificationCode, userNme);
-      return new ModelAndView("verify");
+
+      User userExist = userRepository.findByEmail(email);
+
+      if (userExist != null) {
+        model.addAttribute("message", "SignUp Failed!!! User Already Exists...SignIn istead");
+        return new ModelAndView("signUp");
+      }
+
+      else {
+
+        user.setVerificationCode(verificationCode);
+        user.setVerified(false);
+        user.setVerificationCode(verificationCode);
+        userRepository.save(user);
+        sendVerificationEmail(user.getEmail(), verificationCode, userNme);
+        return new ModelAndView("verify");
+
+      }
 
     } else {
       model.addAttribute("message", "SignUp Failed!!! Try Again");
