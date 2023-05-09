@@ -112,7 +112,7 @@ public class Controller {
       User userExist = userRepository.findByEmail(email);
 
       if (userExist != null) {
-        model.addAttribute("message", "SignUp Failed!!! User Already Exists...SignIn istead");
+        model.addAttribute("message", "SignUp Failed!!! User Already Exists...SignIn instead");
         return new ModelAndView("signUp");
       }
 
