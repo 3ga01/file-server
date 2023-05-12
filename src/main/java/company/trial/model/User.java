@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     /**
@@ -83,7 +83,7 @@ public class User {
         this.email = email;
     }
 
-    @Column(name = "verified", nullable = false)
+    @Column(name = "verified" )
     private boolean verified;
 
     /**
