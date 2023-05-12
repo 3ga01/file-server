@@ -1,21 +1,11 @@
 package company.trial.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import company.trial.model.User;
-import company.trial.repositories.UserRepository;
 
-@Service
-public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+public interface UserService {
+    void saveUser(User user);
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+    boolean isUserAlreadyPresent(String email);
 
-    public void save(User user) {
-        userRepository.save(user);
-    }
+    User getUserByEmail(String email);
 }
