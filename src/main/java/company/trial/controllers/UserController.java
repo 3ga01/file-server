@@ -22,44 +22,21 @@ import org.springframework.web.servlet.ModelAndView;
 import company.trial.model.User;
 import company.trial.service.UserService;
 
-
 @RestController
 public class UserController {
 
-    
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signUp")
-    public ModelAndView signupForm(Model model) {
-    model.addAttribute("user", new User());
-    return new ModelAndView("signUp");
-    }
-
-    @PostMapping("/signUp")
+    @PostMapping("/user/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
-    BindingResult result, Model model) {
-    if (result.hasErrors()) {
-    return new ModelAndView("signUp");
-    }
-    if (userService.isUserAlreadyPresent(user.getEmail())) {
-    model.addAttribute("errorMessage", "This email is already registered!");
-    return new ModelAndView("signUp");
-
-    }
-    userService.saveUser(user);
-    model.addAttribute("successMessage", "User registration successful!");
-    return new ModelAndView("new");
-    }
-
-    @GetMapping("/login")
-    public ModelAndView loginForm() {
-        return new ModelAndView("login");
-    }
-
-    @GetMapping("/user/lgin")
-    public ModelAndView welcome() {
-        return new ModelAndView("new");
+            BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return new ModelAndView("signUp");
+        }
+       
+        userService.saveUser(user);
+        return new ModelAndView("verify");
     }
 
 }

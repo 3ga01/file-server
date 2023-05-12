@@ -5,7 +5,5 @@ import company.trial.model.User;
 public interface UserService {
     void saveUser(User user);
 
-    boolean isUserAlreadyPresent(String email);
-
     User getUserByEmail(String email);
 }
