@@ -3,6 +3,7 @@
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/controllers/AdminController.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/FileRepository.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/dto/AdminDto.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/service/UserService.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/repositories/UserRepository.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/model/User.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/config/SecurityConfig.java
@@ -10,7 +11,10 @@
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/TrialApplication.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/Controller.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/dto/LoginDto.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/service/AuthService.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/model/Files.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/service/UserServiceImpl.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/model/Role.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/controllers/UserController.java
+/media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/service/AdminService.java
 /media/kwabena/trigger/websites/Amalitech/trial/src/main/java/company/trial/model/Admin.java

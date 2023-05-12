@@ -13,7 +13,7 @@
   <body>
     <div class="container">
       <h1>User Login</h1>
-      <p th:text="${message}" class="error-message"></p>
+      <p th:if="${param.error ne null}" class="error-message">Invalid username or password</p>
       <form action="/login" method="POST" th:object="${validusers}" id="myForm">
         <label for="email"><b>Email</b></label>
         <input

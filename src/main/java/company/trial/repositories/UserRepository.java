@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   User findByVerificationCode(String verificationCode);
 
+  User findByName(String name);
+
 }
