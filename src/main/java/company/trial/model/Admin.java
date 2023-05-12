@@ -1,4 +1,4 @@
-package company.trial.repositories;
+package company.trial.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

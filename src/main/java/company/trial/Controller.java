@@ -36,11 +36,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import company.trial.repositories.Admin;
+import company.trial.model.Admin;
+import company.trial.model.Files;
+import company.trial.model.User;
 import company.trial.repositories.AdminRepository;
 import company.trial.repositories.FileRepository;
-import company.trial.repositories.Files;
-import company.trial.repositories.User;
 import company.trial.repositories.UserRepository;
 
 @RestController

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import company.trial.model.Files;
+
 public interface FileRepository extends JpaRepository<Files, Long> {
   Optional<Files> findByName(String name);
 
