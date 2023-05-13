@@ -18,16 +18,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    
     @PostMapping("/user/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
             BindingResult result, Model model) {
+
         if (result.hasErrors()) {
+            model.addAttribute("message", "SignUp Failed!!!...Try Again");
             return new ModelAndView("signUp");
         }
+
         if (userService.userExist(user.getEmail())) {
+            model.addAttribute("null", "SignUp Failed!!!...Email: " + user.getEmail() + " already exist");
+
             return new ModelAndView("signUp");
         }
+
         userService.saveUser(user);
         return new ModelAndView("verify");
     }
