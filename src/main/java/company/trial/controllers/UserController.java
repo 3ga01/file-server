@@ -34,7 +34,7 @@ public class UserController {
         }
 
         userService.saveUser(user);
-        return new ModelAndView("verify");
+        return new ModelAndView("login");
     }
 
 }
