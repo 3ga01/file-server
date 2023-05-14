@@ -42,4 +42,10 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public boolean isUserValidated(String email) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

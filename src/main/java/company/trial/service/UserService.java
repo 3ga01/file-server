@@ -6,4 +6,8 @@ public interface UserService {
     void saveUser(User user);
 
     boolean userExist(String email);
+
+    boolean isUserValidated(String email);
+
+    void generateCode();
 }
