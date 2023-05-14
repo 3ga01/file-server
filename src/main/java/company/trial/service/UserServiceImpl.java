@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) throws MessagingException {
+        
         String code = generateCode();
         Errors errors = new BeanPropertyBindingResult(user, "user");
         ValidationUtils.invokeValidator(userValidator, user, errors);

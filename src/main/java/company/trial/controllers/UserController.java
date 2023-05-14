@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/login")
     public ModelAndView userLogin(@ModelAttribute("user") User user) {
         userDetails.loadUserByUsername("user.getEmai()");
-        return new ModelAndView("landing");
+        return new ModelAndView("redirect:/user/landing");
     }
 
     @GetMapping("/user/login")
