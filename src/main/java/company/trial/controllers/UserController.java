@@ -20,7 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/user/signUp")
+    
+
+    @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
             BindingResult result, Model model) throws MessagingException {
 
@@ -31,7 +33,7 @@ public class UserController {
         }
 
         if (userService.userExist(user.getEmail())) {
-            model.addAttribute("null", "SignUp Failed!!!...Email: " + user.getEmail() + " already exist");
+            model.addAttribute("message", "SignUp Failed!!!...Email: " + user.getEmail() + " already exist");
 
             return new ModelAndView("signUp");
         }
@@ -39,7 +41,12 @@ public class UserController {
         userService.sendCode(user.getEmail(), user.getName());
 
         userService.saveUser(user);
-        return new ModelAndView("login");
+        return new ModelAndView("redirect:/user/verify");
+    }
+
+    @GetMapping("/user/verify")
+    public ModelAndView verifyUser() {
+        return new ModelAndView("verify");
     }
 
 }
