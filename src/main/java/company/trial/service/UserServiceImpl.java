@@ -1,6 +1,12 @@
 package company.trial.service;
 
+import java.util.Random;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -19,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private Validator userValidator;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Override
     public void saveUser(User user) {
@@ -46,6 +55,29 @@ public class UserServiceImpl implements UserService {
     public boolean isUserValidated(String email) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public String generateCode() {
+        return String.format("%06d", new Random().nextInt(999999));
+    }
+
+    @Override
+    public void sendCode(String email, String userName) throws MessagingException {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Verify your file sever account");
+        message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
+                + "\nTo complete your account setup, please use the verification code below: \n"
+                + "\nVerification Code: "
+                + generateCode() + "\n"
+                + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
+                + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
+                + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
+                + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
+                + "File Server team");
+        mailSender.send(message);
+
     }
 
 }

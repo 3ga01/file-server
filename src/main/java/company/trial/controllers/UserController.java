@@ -1,5 +1,7 @@
 package company.trial.controllers;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +22,11 @@ public class UserController {
 
     @PostMapping("/user/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
-            BindingResult result, Model model) {
+            BindingResult result, Model model) throws MessagingException {
 
         if (result.hasErrors()) {
             model.addAttribute("message", "SignUp Failed!!!...Try Again");
+
             return new ModelAndView("signUp");
         }
 
@@ -32,6 +35,8 @@ public class UserController {
 
             return new ModelAndView("signUp");
         }
+
+        userService.sendCode(user.getEmail(), user.getName());
 
         userService.saveUser(user);
         return new ModelAndView("login");

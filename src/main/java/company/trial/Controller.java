@@ -442,17 +442,17 @@
 //    */
 //   private void sendVerificationEmail(String email, String verificationCode, String userName) throws MessagingException {
 //     SimpleMailMessage message = new SimpleMailMessage();
-//     message.setTo(email);
-//     message.setSubject("Verify your file sever account");
-//     message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
-//         + "\nTo complete your account setup, please use the verification code below: \n" + "\nVerification Code: "
-//         + verificationCode + "\n"
-//         + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
-//         + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
-//         + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
-//         + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
-//         + "File Server team");
-//     mailSender.send(message);
+    // message.setTo(email);
+    // message.setSubject("Verify your file sever account");
+    // message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
+    //     + "\nTo complete your account setup, please use the verification code below: \n" + "\nVerification Code: "
+    //     + verificationCode + "\n"
+    //     + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
+    //     + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
+    //     + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
+    //     + "\nThank you for choosing file Server. We look forward to serving you!\n" + "\nBest regards,\n"
+    //     + "File Server team");
+    // mailSender.send(message);
 //   }
 
 //   // send email when user logs in

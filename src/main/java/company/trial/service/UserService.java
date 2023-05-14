@@ -1,5 +1,7 @@
 package company.trial.service;
 
+import javax.mail.MessagingException;
+
 import company.trial.model.User;
 
 public interface UserService {
@@ -9,5 +11,8 @@ public interface UserService {
 
     boolean isUserValidated(String email);
 
-    void generateCode();
+    String generateCode();
+
+    void sendCode(String email, String userName) throws MessagingException;
+
 }
