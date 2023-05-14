@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import company.trial.model.User;
+import company.trial.service.UserDetailsServiceImpl;
 import company.trial.service.UserService;
 
 @RestController
@@ -21,10 +22,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/landing")
-    public ModelAndView userSignIn() {
-        return new ModelAndView("landing");
+    @Autowired
+    private UserDetailsServiceImpl userDetails;
 
+    @PostMapping("/login")
+    public ModelAndView userLogin(@ModelAttribute("user") User user) {
+        userDetails.loadUserByUsername("user.getEmai()");
+        return new ModelAndView("landing");
+    }
+
+    @GetMapping("/user/login")
+    public ModelAndView getLanding() {
+
+        return new ModelAndView("landing");
     }
 
     @PostMapping("/signUp")
