@@ -21,8 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/landing")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user/landing")
     public ModelAndView userSignIn() {
         return new ModelAndView("landing");
 

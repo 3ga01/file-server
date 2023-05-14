@@ -16,7 +16,7 @@
       <p th:if="${param.error ne null}" class="error-message">
         Invalid username or password
       </p>
-      <form action="/landing" method="POST" th:object="${user}" id="myForm">
+      <form action="/login" method="POST" th:object="${user}" id="myForm">
         <label for="email"><b>Email</b></label>
         <input
           type="email"
