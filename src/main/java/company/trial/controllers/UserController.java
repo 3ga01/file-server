@@ -20,8 +20,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    
-
     @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
             BindingResult result, Model model) throws MessagingException {
@@ -38,14 +36,24 @@ public class UserController {
             return new ModelAndView("signUp");
         }
 
-        userService.sendCode(user.getEmail(), user.getName());
-
         userService.saveUser(user);
         return new ModelAndView("redirect:/user/verify");
     }
 
     @GetMapping("/user/verify")
-    public ModelAndView verifyUser() {
+    public ModelAndView showUserVerificatinPage() {
+        return new ModelAndView("verify");
+    }
+
+    @PostMapping("/user/verify")
+    public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
+
+        if (userService.verify(user)){
+            return new ModelAndView("landing");
+
+        }
+
+        model.addAttribute("message", "Verification Failed!!!...Try Again");
         return new ModelAndView("verify");
     }
 

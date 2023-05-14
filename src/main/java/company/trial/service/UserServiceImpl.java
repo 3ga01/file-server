@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyProperties.Identityprovider.Verification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,14 +31,15 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender mailSender;
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(User user) throws MessagingException {
         Errors errors = new BeanPropertyBindingResult(user, "user");
         ValidationUtils.invokeValidator(userValidator, user, errors);
 
         if (errors.hasErrors()) {
 
         }
-
+        sendCode(user.getEmail(),user.getName());
+        user.setVerified(false);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -78,6 +80,24 @@ public class UserServiceImpl implements UserService {
                 + "File Server team");
         mailSender.send(message);
 
+    }
+
+    @Override
+    public boolean verify(User user) {
+
+      String  verificationCode = user.getVerificationCode(); 
+
+    user = userRepository.findByVerificationCode(verificationCode);
+
+    if(user != null){
+        user.setVerified(true);
+        userRepository.save(user);
+        return true;
+    }
+    else{
+        return false;
+    }
+    
     }
 
 }

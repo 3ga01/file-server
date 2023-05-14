@@ -13,7 +13,7 @@
       <p>
         Please enter the verification code sent to your email address below.
       </p>
-      <form action="/verify" method="post" th:object="${verify}">
+      <form action="/user/verify" method="post" th:object="${verify}">
         <label for="code">Verification Code</label>
         <input
           type="text"
