@@ -5,7 +5,6 @@ import java.util.Random;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyProperties.Identityprovider.Verification;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,15 +31,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) throws MessagingException {
+        String code = generateCode();
         Errors errors = new BeanPropertyBindingResult(user, "user");
         ValidationUtils.invokeValidator(userValidator, user, errors);
 
         if (errors.hasErrors()) {
 
         }
-        sendCode(user.getEmail(),user.getName());
+        sendCode(user.getEmail(), user.getName(), code);
+
         user.setVerified(false);
+
+        user.setVerificationCode(code);
+
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
         userRepository.save(user);
     }
 
@@ -65,14 +70,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendCode(String email, String userName) throws MessagingException {
+    public void sendCode(String email, String userName, String code) throws MessagingException {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Verify your file sever account");
         message.setText("Dear " + userName + "\n" + "\n Welcome to file server! We're excited to have you join us.\n"
                 + "\nTo complete your account setup, please use the verification code below: \n"
                 + "\nVerification Code: "
-                + generateCode() + "\n"
+                + code + "\n"
                 + "\nPlease enter this code on the verification page to confirm your account and start using our service.\n"
                 + "\nIf you didn't sign up for an account with us, please ignore this message. Someone may have used your email address by mistake, and no further action is required. \n"
                 + "\nIf you have any questions or need assistance with your account, please contact our support team at emmanuel.omari@amalitech.org/+233 591 961 186.\n"
@@ -85,19 +90,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean verify(User user) {
 
-      String  verificationCode = user.getVerificationCode(); 
+        String verificationCode = user.getVerificationCode();
 
-    user = userRepository.findByVerificationCode(verificationCode);
+        user = userRepository.findByVerificationCode(verificationCode);
 
-    if(user != null){
-        user.setVerified(true);
-        userRepository.save(user);
-        return true;
-    }
-    else{
-        return false;
-    }
-    
+        if (user != null) {
+            user.setVerified(true);
+            userRepository.save(user);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

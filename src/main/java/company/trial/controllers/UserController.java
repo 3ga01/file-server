@@ -48,7 +48,7 @@ public class UserController {
     @PostMapping("/user/verify")
     public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
 
-        if (userService.verify(user)){
+        if (userService.verify(user)) {
             return new ModelAndView("landing");
 
         }

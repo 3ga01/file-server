@@ -13,7 +13,7 @@ public interface UserService {
 
     String generateCode();
 
-    void sendCode(String email, String userName) throws MessagingException;
+    void sendCode(String email, String userName,String code) throws MessagingException;
 
     boolean verify(User user);
 
