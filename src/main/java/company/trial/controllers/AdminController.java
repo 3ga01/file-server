@@ -22,4 +22,16 @@ public class AdminController {
 
     }
 
+    @GetMapping("/admin/upload")
+    public ModelAndView uploadPage(){
+        return new ModelAndView("uploadFile");
+
+    }
+
+    @GetMapping("/admin/viewFiles")
+    public ModelAndView filesPage() {
+        return new ModelAndView("viewFiles");
+
+    }
+
 }
