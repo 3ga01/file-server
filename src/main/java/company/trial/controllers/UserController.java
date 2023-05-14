@@ -3,6 +3,7 @@ package company.trial.controllers;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/landing")
+    @PreAuthorize("hasRole('USER')")
+    public ModelAndView userSignIn() {
+        return new ModelAndView("landing");
+
+    }
 
     @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
@@ -41,11 +49,13 @@ public class UserController {
     }
 
     @GetMapping("/user/verify")
+    @PreAuthorize("hasRole('USER')")
     public ModelAndView showUserVerificatinPage() {
         return new ModelAndView("verify");
     }
 
     @PostMapping("/user/verify")
+    @PreAuthorize("hasRole('USER')")
     public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
 
         if (userService.verify(user)) {

@@ -25,7 +25,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 
         User user = (User) target;
-        if (user.getName().length() < 6 || user.getUsername().length() > 32) {
+        if (user.getName().length() < 6 || user.getName().length() > 32) {
             errors.rejectValue("name", "Size.userForm.name");
         }
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {

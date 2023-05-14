@@ -1,5 +1,6 @@
 package company.trial.service;
 
+import java.util.Collections;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -14,6 +15,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import company.trial.model.Role;
 import company.trial.model.User;
 import company.trial.repositories.UserRepository;
 
@@ -43,6 +45,8 @@ public class UserServiceImpl implements UserService {
         user.setVerified(false);
 
         user.setVerificationCode(code);
+
+        user.setRoles(Collections.singleton(Role.USER)); 
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 

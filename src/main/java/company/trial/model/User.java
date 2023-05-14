@@ -1,8 +1,12 @@
 package company.trial.model;
 
 import java.util.Collection;
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -117,16 +121,6 @@ public class User implements UserDetails {
         this.verificationCode = verificationCode;
     }
 
-    @Column(name = "role")
-    private String role;
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     // UserDetails methods
     @Override
@@ -168,6 +162,15 @@ public class User implements UserDetails {
         return null;
     }
 
-    
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles;
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 
 }
