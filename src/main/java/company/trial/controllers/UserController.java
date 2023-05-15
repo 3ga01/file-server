@@ -46,7 +46,7 @@ public class UserController {
     private FileRepository fileRepository;
 
     @Autowired
-     private JavaMailSender mailSender;
+    private JavaMailSender mailSender;
 
     @Autowired
     private UserService userService;
@@ -106,122 +106,122 @@ public class UserController {
     }
 
     @GetMapping("/user/preview/{name:.+}")
-  public ResponseEntity<byte[]> getFile(@PathVariable String name){
+    public ResponseEntity<byte[]> getFile(@PathVariable String name) {
 
-      Optional<Files> fileOptional = fileRepository.findByName(name);
-      if (!fileOptional.isPresent()) {
-          return ResponseEntity.notFound().build();
-      }
-      Files files = fileOptional.get();
-      HttpHeaders headers = new HttpHeaders();
-      headers.setContentType(MediaType.parseMediaType(files.getType()));
-      // headers.setContentLength(files.getFiles().length);
-      headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
-      return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
-      
+        Optional<Files> fileOptional = fileRepository.findByName(name);
+        if (!fileOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Files files = fileOptional.get();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(files.getType()));
+        // headers.setContentLength(files.getFiles().length);
+        headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
+        return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
 
-  }
+    }
 
-  @GetMapping ("/user/landing")
-  public ModelAndView newSignUp(Model model) {
-      List<Files> files = fileRepository.findAll();
-      model.addAttribute("files", files);
-      return new ModelAndView("landing");
-  }
+    @GetMapping("/user/landing")
+    public ModelAndView newSignUp(Model model) {
+        List<Files> files = fileRepository.findAll();
+        model.addAttribute("files", files);
+        return new ModelAndView("landing");
+    }
 
-  @GetMapping("/user/download/{name:.+}")
-  public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String name) {
-      Optional<Files> optionalFile = fileRepository.findByName(name);
+    @GetMapping("/user/download/{name:.+}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String name) {
+        Optional<Files> optionalFile = fileRepository.findByName(name);
 
-      if (optionalFile.isPresent()) {
-          Files file = optionalFile.get();
-          String fileType = file.getType();
+        if (optionalFile.isPresent()) {
+            Files file = optionalFile.get();
+            String fileType = file.getType();
 
-          file.setDownloadCount(file.getDownloadCount() + 1);
-          fileRepository.save(file);
+            file.setDownloadCount(file.getDownloadCount() + 1);
+            fileRepository.save(file);
 
-          // Create a ByteArrayResource from the file content
-          ByteArrayResource resource = new ByteArrayResource(file.getFiles());
+            // Create a ByteArrayResource from the file content
+            ByteArrayResource resource = new ByteArrayResource(file.getFiles());
 
-          // Set the response headers to indicate a file download
-          HttpHeaders headers = new HttpHeaders();
-          headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
-          headers.add(HttpHeaders.CONTENT_TYPE, fileType); // Add fileType to the response headers
+            // Set the response headers to indicate a file download
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
+            headers.add(HttpHeaders.CONTENT_TYPE, fileType); // Add fileType to the response headers
 
-          return ResponseEntity.ok()
-                  .headers(headers)
-                  .contentLength(resource.contentLength())
-                  // .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                  .body(resource);
-      } else {
-          // Handle the case where the file is not found
-          return ResponseEntity.notFound().build();
-      }
-  }
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(resource.contentLength())
+                    // .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(resource);
+        } else {
+            // Handle the case where the file is not found
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-  @PostMapping("/user/search")
-  public ModelAndView search(@RequestParam(name = "query", required = false) String query, Model model) {
-      List<Files> files;
-      if (query == null) {
-          files = fileRepository.findAll();
-      } else {
-          files = fileRepository.findByNameContainingIgnoreCase(query);
-      }
-      model.addAttribute("files", files);
-      return new ModelAndView("landing");
-  }
+    @PostMapping("/user/search")
+    public ModelAndView search(@RequestParam(name = "query", required = false) String query, Model model) {
+        List<Files> files;
+        if (query == null) {
+            files = fileRepository.findAll();
+        } else {
+            files = fileRepository.findByNameContainingIgnoreCase(query);
+        }
+        model.addAttribute("files", files);
+        return new ModelAndView("landing");
+    }
 
-  @PostMapping("/user/send")
-  public ModelAndView sendFile(@RequestParam("name") String fileName,
-      @RequestParam("recepEmail") String recepEmail) throws MessagingException {
+    @PostMapping("/user/send")
+    public ModelAndView sendFile(@RequestParam("name") String fileName,
+            @RequestParam("recepEmail") String recepEmail) throws MessagingException {
 
-    Optional<Files> fileOptional = fileRepository.findByName(fileName);
+        Optional<Files> fileOptional = fileRepository.findByName(fileName);
 
-    if (fileOptional.isPresent()) {
-      Files file = fileOptional.get();
-      String fileType = file.getType();
+        if (fileOptional.isPresent()) {
+            Files file = fileOptional.get();
+            String fileType = file.getType();
 
-      sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
-      file.setMailCount(file.getMailCount() + 1);
-      fileRepository.save(file);
-      return new ModelAndView("landing");
+            sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
+            file.setMailCount(file.getMailCount() + 1);
+            fileRepository.save(file);
+            return new ModelAndView("landing");
 
-      // code to send the file as an email attachment to the recipient
-    } else {
+            // code to send the file as an email attachment to the recipient
+        } else {
 
-      return new ModelAndView("landing");}
+            return new ModelAndView("landing");
+        }
 
     }
 
     private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
-      throws MessagingException {
+            throws MessagingException {
 
-    MimeMessage message = mailSender.createMimeMessage();
+        MimeMessage message = mailSender.createMimeMessage();
 
-    // Set the To address
-    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        // Set the To address
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
 
-    // Set the subject
-    message.setSubject("File attachment: " + fileName);
+        // Set the subject
+        message.setSubject("File attachment: " + fileName);
 
-    // Create the message body
-    MimeBodyPart messageBodyPart = new MimeBodyPart();
-    messageBodyPart.setText("Please find attached file.");
+        // Create the message body
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText("Please find attached file.");
 
-    // Create the attachment
-    MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-    ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, fileType);
-    attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
-    attachmentBodyPart.setFileName(fileName);
+        // Create the attachment
+        MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+        ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, fileType);
+        attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
+        attachmentBodyPart.setFileName(fileName);
 
-    // Add the message body and attachment to the multipart message
-    Multipart multipart = new MimeMultipart();
-    multipart.addBodyPart(messageBodyPart);
-    multipart.addBodyPart(attachmentBodyPart);
-    message.setContent(multipart);
+        // Add the message body and attachment to the multipart message
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        multipart.addBodyPart(attachmentBodyPart);
+        message.setContent(multipart);
 
-    // Send the message
-    mailSender.send(message);
-  }
+        // Send the message
+        mailSender.send(message);
+    }
 
 }
