@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -144,6 +145,18 @@ public class UserController {
           // Handle the case where the file is not found
           return ResponseEntity.notFound().build();
       }
+  }
+
+  @PostMapping("/user/search")
+  public ModelAndView search(@RequestParam(name = "query", required = false) String query, Model model) {
+      List<Files> files;
+      if (query == null) {
+          files = fileRepository.findAll();
+      } else {
+          files = fileRepository.findByNameContainingIgnoreCase(query);
+      }
+      model.addAttribute("files", files);
+      return new ModelAndView("landing");
   }
 
 }

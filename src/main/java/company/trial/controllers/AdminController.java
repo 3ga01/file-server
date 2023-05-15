@@ -39,11 +39,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("/admin/viewFiles")
-    public ModelAndView filesPage() {
-        return new ModelAndView("viewFiles");
-
-    }
+   
 
     @PostMapping("/admin/upload")
     public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
