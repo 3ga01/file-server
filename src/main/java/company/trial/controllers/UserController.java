@@ -3,8 +3,16 @@ package company.trial.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -13,6 +21,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +44,9 @@ public class UserController {
 
     @Autowired
     private FileRepository fileRepository;
+
+    @Autowired
+     private JavaMailSender mailSender;
 
     @Autowired
     private UserService userService;
@@ -157,6 +169,59 @@ public class UserController {
       }
       model.addAttribute("files", files);
       return new ModelAndView("landing");
+  }
+
+  @PostMapping("/user/send")
+  public ModelAndView sendFile(@RequestParam("name") String fileName,
+      @RequestParam("recepEmail") String recepEmail) throws MessagingException {
+
+    Optional<Files> fileOptional = fileRepository.findByName(fileName);
+
+    if (fileOptional.isPresent()) {
+      Files file = fileOptional.get();
+      String fileType = file.getType();
+
+      sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
+      file.setMailCount(file.getMailCount() + 1);
+      fileRepository.save(file);
+      return new ModelAndView("landing");
+
+      // code to send the file as an email attachment to the recipient
+    } else {
+
+      return new ModelAndView("landing");}
+
+    }
+
+    private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
+      throws MessagingException {
+
+    MimeMessage message = mailSender.createMimeMessage();
+
+    // Set the To address
+    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+
+    // Set the subject
+    message.setSubject("File attachment: " + fileName);
+
+    // Create the message body
+    MimeBodyPart messageBodyPart = new MimeBodyPart();
+    messageBodyPart.setText("Please find attached file.");
+
+    // Create the attachment
+    MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+    ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, fileType);
+    attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
+    attachmentBodyPart.setFileName(fileName);
+
+    // Add the message body and attachment to the multipart message
+    Multipart multipart = new MimeMultipart();
+    multipart.addBodyPart(messageBodyPart);
+    multipart.addBodyPart(attachmentBodyPart);
+    message.setContent(multipart);
+
+    // Send the message
+    mailSender.send(message);
   }
 
 }
