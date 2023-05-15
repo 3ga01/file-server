@@ -87,7 +87,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Column(name = "verified" )
+    @Column(name = "verified")
     private boolean verified;
 
     /**
@@ -120,7 +120,6 @@ public class User implements UserDetails {
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
-
 
     // UserDetails methods
     @Override

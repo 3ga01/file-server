@@ -15,17 +15,10 @@ public class MainController {
         return new ModelAndView("login");
     }
 
-    // @GetMapping("/adminLogin")
-    // public ModelAndView adminLoginForm() {
-    //     return new ModelAndView("adminLogin");
-    // }
-
     @GetMapping("/signUp")
     public ModelAndView signupForm(Model model) {
         model.addAttribute("user", new User());
         return new ModelAndView("signUp");
     }
-
-    
 
 }

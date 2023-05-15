@@ -1,8 +1,11 @@
 package company.trial.service;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.ModelAndView;
 
 import company.trial.model.User;
 
@@ -15,19 +18,10 @@ public interface UserService {
 
     String generateCode();
 
-    void sendCode(String email, String userName,String code) throws MessagingException;
-
     boolean verify(User user);
 
     void findAllFiles();
 
     void findFileByEmail();
-
-     void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType) throws MessagingException;
-
-     ResponseEntity<byte[]> getFile(String name);
-
-    
-
 
 }

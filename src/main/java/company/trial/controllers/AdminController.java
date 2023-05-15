@@ -39,8 +39,6 @@ public class AdminController {
 
     }
 
-   
-
     @PostMapping("/admin/upload")
     public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
             @RequestParam("name") String name,

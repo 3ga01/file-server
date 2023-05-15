@@ -15,7 +15,7 @@ import company.trial.model.User;
 import company.trial.repositories.UserRepository;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -26,11 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-         Set<GrantedAuthority> authorities = new HashSet<>();
+        Set<GrantedAuthority> authorities = new HashSet<>();
         for (String role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
-   
+
 }

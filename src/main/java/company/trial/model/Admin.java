@@ -12,10 +12,11 @@ import javax.persistence.Table;
 public class Admin {
 
   /**
-   *Admin id
+   * Admin id
    */
   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  private Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Column(name = "name", nullable = false)
   private String name;

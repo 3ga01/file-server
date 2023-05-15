@@ -1,7 +1,5 @@
 package company.trial.model;
 
-import java.io.StringReader;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -120,12 +118,12 @@ public class Files {
     this.downloadCount = downloadCount;
   }
 
-public byte[] getContent() {
+  public byte[] getContent() {
     return null;
-}
+  }
 
-public char[] getSize() {
+  public char[] getSize() {
     return null;
-}
+  }
 
 }
