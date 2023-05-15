@@ -3,9 +3,11 @@ package company.trial.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -112,6 +114,36 @@ public class UserController {
       List<Files> files = fileRepository.findAll();
       model.addAttribute("files", files);
       return new ModelAndView("landing");
+  }
+
+  @GetMapping("/user/download/{name:.+}")
+  public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String name) {
+      Optional<Files> optionalFile = fileRepository.findByName(name);
+
+      if (optionalFile.isPresent()) {
+          Files file = optionalFile.get();
+          String fileType = file.getType();
+
+          file.setDownloadCount(file.getDownloadCount() + 1);
+          fileRepository.save(file);
+
+          // Create a ByteArrayResource from the file content
+          ByteArrayResource resource = new ByteArrayResource(file.getFiles());
+
+          // Set the response headers to indicate a file download
+          HttpHeaders headers = new HttpHeaders();
+          headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; name=" + file.getName());
+          headers.add(HttpHeaders.CONTENT_TYPE, fileType); // Add fileType to the response headers
+
+          return ResponseEntity.ok()
+                  .headers(headers)
+                  .contentLength(resource.contentLength())
+                  // .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                  .body(resource);
+      } else {
+          // Handle the case where the file is not found
+          return ResponseEntity.notFound().build();
+      }
   }
 
 }

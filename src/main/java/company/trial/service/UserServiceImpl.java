@@ -1,6 +1,7 @@
 package company.trial.service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -24,6 +25,7 @@ import org.springframework.validation.Validator;
 import company.trial.model.Files;
 import company.trial.model.Role;
 import company.trial.model.User;
+import company.trial.repositories.FileRepository;
 import company.trial.repositories.UserRepository;
 
 @Service
@@ -37,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @Override
     public void saveUser(User user) throws MessagingException {
@@ -115,6 +120,20 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public void findAllFiles() {
+        List<Files> files = fileRepository.findAll();
+        
+    }
+
+    @Override
+    public void findFileByEmail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findFileByEmail'");
+    }
+
+    
 
     
 }
