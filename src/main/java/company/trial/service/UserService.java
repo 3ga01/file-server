@@ -2,8 +2,6 @@ package company.trial.service;
 
 import javax.mail.MessagingException;
 
-import org.springframework.http.ResponseEntity;
-
 import company.trial.model.User;
 
 public interface UserService {
@@ -22,6 +20,8 @@ public interface UserService {
     void findAllFiles();
 
     void findFileByEmail();
+
+    
 
 
 }

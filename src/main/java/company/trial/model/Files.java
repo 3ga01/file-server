@@ -120,4 +120,12 @@ public class Files {
     this.downloadCount = downloadCount;
   }
 
+public byte[] getContent() {
+    return null;
+}
+
+public char[] getSize() {
+    return null;
+}
+
 }
