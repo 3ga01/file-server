@@ -1,19 +1,10 @@
 package company.trial.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.IOException;
 
-import company.trial.model.Admin;
-import company.trial.repositories.AdminRepository;
+import org.springframework.web.multipart.MultipartFile;
 
-public class AdminService {
-    @Autowired
-    private AdminRepository adminRepository;
+public interface AdminService {
 
-    public Admin findByEmail(String email) {
-        return adminRepository.findByEmail(email);
-    }
-
-    public void save(Admin admin) {
-        adminRepository.save(admin);
-    }
+    void uploadedFile(String name, String Description, String type,MultipartFile file) ;
 }

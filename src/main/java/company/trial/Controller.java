@@ -288,24 +288,24 @@
 //   public ModelAndView handleFileUpload(@RequestParam("files") MultipartFile file,
 //       @RequestParam("name") String name,
 //       @RequestParam("description") String description, @RequestParam("type") String type) {
-//     try {
-//       Files uploadedFile = new Files();
-//       uploadedFile.setName(name);
-//       uploadedFile.setDescription(description);
-//       uploadedFile.setFiles(file.getBytes());
-//       uploadedFile.setType(type);
-//       uploadedFile.setDownloadCount(0);
-//       uploadedFile.setMailCount(0);
+    // try {
+    //   Files uploadedFile = new Files();
+    //   uploadedFile.setName(name);
+    //   uploadedFile.setDescription(description);
+    //   uploadedFile.setFiles(file.getBytes());
+    //   uploadedFile.setType(type);
+    //   uploadedFile.setDownloadCount(0);
+    //   uploadedFile.setMailCount(0);
 
-//       // Save the file to the database
-//       fileRepository.save(uploadedFile);
+    //   // Save the file to the database
+    //   fileRepository.save(uploadedFile);
 
-//       return new ModelAndView("adminLanding");
-//     } catch (IOException e) {
-//       // handle the exception
-//       return new ModelAndView("uploadFile");
+    //   return new ModelAndView("adminLanding");
+    // } catch (IOException e) {
+    //   // handle the exception
+    //   return new ModelAndView("uploadFile");
 
-//     }
+    // }
 //   }
 
 //   // search
