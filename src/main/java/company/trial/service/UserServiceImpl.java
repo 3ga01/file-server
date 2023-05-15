@@ -1,11 +1,17 @@
 package company.trial.service;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.mail.MessagingException;
 
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import company.trial.model.Files;
 import company.trial.model.Role;
 import company.trial.model.User;
 import company.trial.repositories.UserRepository;
@@ -109,4 +116,5 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    
 }

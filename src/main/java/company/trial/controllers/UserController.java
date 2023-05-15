@@ -1,23 +1,37 @@
 package company.trial.controllers;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import company.trial.model.Files;
 import company.trial.model.User;
+import company.trial.repositories.FileRepository;
 import company.trial.service.UserDetailsServiceImpl;
 import company.trial.service.UserService;
 
 @RestController
 public class UserController {
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @Autowired
     private UserService userService;
@@ -34,7 +48,7 @@ public class UserController {
     @GetMapping("/user/login")
     public ModelAndView getLanding() {
 
-        return new ModelAndView("landing");
+        return new ModelAndView("redirect:/user/landing");
     }
 
     @PostMapping("/signUp")
@@ -68,12 +82,36 @@ public class UserController {
     public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
 
         if (userService.verify(user)) {
-            return new ModelAndView("landing");
+            return new ModelAndView("redirect:/user/landing");
 
         }
 
         model.addAttribute("message", "Verification Failed!!!...Try Again");
         return new ModelAndView("verify");
     }
+
+    @GetMapping("/user/preview/{name:.+}")
+  public ResponseEntity<byte[]> getFile(@PathVariable String name){
+
+      Optional<Files> fileOptional = fileRepository.findByName(name);
+      if (!fileOptional.isPresent()) {
+          return ResponseEntity.notFound().build();
+      }
+      Files files = fileOptional.get();
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.parseMediaType(files.getType()));
+      // headers.setContentLength(files.getFiles().length);
+      headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
+      return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+      
+
+  }
+
+  @GetMapping ("/user/landing")
+  public ModelAndView newSignUp(Model model) {
+      List<Files> files = fileRepository.findAll();
+      model.addAttribute("files", files);
+      return new ModelAndView("landing");
+  }
 
 }

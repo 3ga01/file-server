@@ -333,16 +333,16 @@
 //    */
 //   @GetMapping("/preview/{name:.+}")
 //   public ResponseEntity<byte[]> getFile(@PathVariable String name) {
-//     Optional<Files> fileOptional = fileRepository.findByName(name);
-//     if (!fileOptional.isPresent()) {
-//       return ResponseEntity.notFound().build();
-//     }
-//     Files files = fileOptional.get();
-//     HttpHeaders headers = new HttpHeaders();
-//     headers.setContentType(MediaType.parseMediaType(files.getType()));
-//     // headers.setContentLength(files.getFiles().length);
-//     headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
-//     return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+    // Optional<Files> fileOptional = fileRepository.findByName(name);
+    // if (!fileOptional.isPresent()) {
+    //   return ResponseEntity.notFound().build();
+    // }
+    // Files files = fileOptional.get();
+    // HttpHeaders headers = new HttpHeaders();
+    // headers.setContentType(MediaType.parseMediaType(files.getType()));
+    // // headers.setContentLength(files.getFiles().length);
+    // headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
+    // return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
 //   }
 
 //   // dowload files

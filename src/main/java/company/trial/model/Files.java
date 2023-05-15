@@ -1,5 +1,7 @@
 package company.trial.model;
 
+import java.io.StringReader;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
