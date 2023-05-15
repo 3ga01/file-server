@@ -3,17 +3,7 @@ package company.trial.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ContentDisposition;
@@ -44,9 +34,6 @@ public class UserController {
 
     @Autowired
     private FileRepository fileRepository;
-
-    @Autowired
-    private JavaMailSender mailSender;
 
     @Autowired
     private UserService userService;
@@ -108,16 +95,18 @@ public class UserController {
     @GetMapping("/user/preview/{name:.+}")
     public ResponseEntity<byte[]> getFile(@PathVariable String name) {
 
-        Optional<Files> fileOptional = fileRepository.findByName(name);
-        if (!fileOptional.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        Files files = fileOptional.get();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(files.getType()));
-        // headers.setContentLength(files.getFiles().length);
-        headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
-        return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+        // Optional<Files> fileOptional = fileRepository.findByName(name);
+        // if (!fileOptional.isPresent()) {
+        //     return ResponseEntity.notFound().build();
+        // }
+        // Files files = fileOptional.get();
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.setContentType(MediaType.parseMediaType(files.getType()));
+        // // headers.setContentLength(files.getFiles().length);
+        // headers.setContentDisposition(ContentDisposition.builder("inline").filename(files.getName()).build());
+        // return new ResponseEntity<>(files.getFiles(), headers, HttpStatus.OK);
+
+        return userService.getFile(name);
 
     }
 
@@ -180,7 +169,7 @@ public class UserController {
             Files file = fileOptional.get();
             String fileType = file.getType();
 
-            sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
+            userService.sendEmailWithAttachment(recepEmail, fileName, file.getFiles(), fileType);
             file.setMailCount(file.getMailCount() + 1);
             fileRepository.save(file);
             return new ModelAndView("landing");
@@ -191,37 +180,6 @@ public class UserController {
             return new ModelAndView("landing");
         }
 
-    }
-
-    private void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
-            throws MessagingException {
-
-        MimeMessage message = mailSender.createMimeMessage();
-
-        // Set the To address
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-
-        // Set the subject
-        message.setSubject("File attachment: " + fileName);
-
-        // Create the message body
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setText("Please find attached file.");
-
-        // Create the attachment
-        MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-        ByteArrayDataSource dataSource = new ByteArrayDataSource(fileData, fileType);
-        attachmentBodyPart.setDataHandler(new DataHandler(dataSource));
-        attachmentBodyPart.setFileName(fileName);
-
-        // Add the message body and attachment to the multipart message
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
-        multipart.addBodyPart(attachmentBodyPart);
-        message.setContent(multipart);
-
-        // Send the message
-        mailSender.send(message);
     }
 
 }
