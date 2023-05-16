@@ -29,9 +29,6 @@ public class UserServiceImpl implements UserService {
     private Validator userValidator;
 
     @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
     private FileRepository fileRepository;
 
     @Autowired

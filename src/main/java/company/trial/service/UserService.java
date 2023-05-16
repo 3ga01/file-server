@@ -1,11 +1,6 @@
 package company.trial.service;
 
-import java.util.List;
-
 import javax.mail.MessagingException;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.ModelAndView;
 
 import company.trial.model.User;
 

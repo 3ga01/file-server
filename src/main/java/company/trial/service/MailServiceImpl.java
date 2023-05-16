@@ -15,16 +15,11 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import company.trial.repositories.FileRepository;
-
 @Service
 public class MailServiceImpl implements MailService {
 
     @Autowired
     private JavaMailSender mailSender;
-
-    @Autowired
-    private FileRepository fileRepository;
 
     @Override
     public void sendCode(String email, String userName, String code) throws MessagingException {
@@ -47,7 +42,6 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
             throws MessagingException {
-        // TODO Auto-generated method stub
         MimeMessage message = mailSender.createMimeMessage();
 
         // Set the To address
