@@ -83,5 +83,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public boolean resetUserPassword(String email, String password) {
+        User user = userRepository.findByEmail(email);
+
+        if (user != null && user.isVerified()) {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userRepository.save(user);
+            return true;
+        }
+
+        return false;
+    }
+
    
 }

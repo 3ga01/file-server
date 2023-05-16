@@ -13,5 +13,7 @@ public interface UserService {
 
     boolean verify(User user);
 
+    boolean resetUserPassword(String email, String password);
+
 
 }
