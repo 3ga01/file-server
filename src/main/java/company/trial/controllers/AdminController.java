@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +28,7 @@ public class AdminController {
     @Autowired
     private FileRepository fileRepository;
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/admin/login")
     public ModelAndView adminLanding(@ModelAttribute("validadmin") User user) {
         return new ModelAndView("adminLanding");
@@ -34,6 +36,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/upload")
+    @Secured("ROLE_ADMIN")
     public ModelAndView uploadPage() {
         return new ModelAndView("uploadFile");
 

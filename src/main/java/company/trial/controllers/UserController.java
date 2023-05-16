@@ -5,6 +5,7 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,17 +43,17 @@ public class UserController {
     @Autowired
     private UserDetailsServiceImpl userDetails;
 
-    @PostMapping("/login")
-    public ModelAndView userLogin(@ModelAttribute("user") User user) {
-        userDetails.loadUserByUsername("user.getEmai()");
-        return new ModelAndView("redirect:/user/landing");
-    }
+    // @PostMapping("/user")
+    // public ModelAndView userLogin(@ModelAttribute("user") User user) {
+    //     userDetails.loadUserByUsername(user.getEmail());
+    //     return new ModelAndView("redirect:/user/landing");
+    // }
 
-    @GetMapping("/user/login")
-    public ModelAndView getLanding() {
-
-        return new ModelAndView("redirect:/user/landing");
-    }
+    // @GetMapping("/user/landing")
+    // @PreAuthorize("hasRole('USER')")
+    // public ModelAndView getLanding() {
+    //     return new ModelAndView("landing");
+    // }
 
     @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
@@ -99,6 +100,7 @@ public class UserController {
 
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("/user/landing")
     public ModelAndView newSignUp(Model model) {
         List<Files> files = fileRepository.findAll();

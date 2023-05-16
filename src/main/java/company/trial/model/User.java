@@ -15,7 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "members")
+@Table(name = "user")
 public class User implements UserDetails {
 
     @Id
@@ -87,7 +87,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Column(name = "verified")
+    @Column(name = "verified" )
     private boolean verified;
 
     /**
@@ -121,6 +121,7 @@ public class User implements UserDetails {
         this.verificationCode = verificationCode;
     }
 
+
     // UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -149,7 +150,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return null;
     }
 
     public boolean isPresent() {
@@ -163,12 +164,18 @@ public class User implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> roles;
 
+   
+
     public Set<String> getRoles() {
-        return roles;
+        return this.roles;
     }
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
+   
+
+   
 
 }
