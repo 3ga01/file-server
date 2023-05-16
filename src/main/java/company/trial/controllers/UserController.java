@@ -5,7 +5,6 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +21,6 @@ import company.trial.model.User;
 import company.trial.repositories.FileRepository;
 import company.trial.service.FileService;
 import company.trial.service.MailService;
-import company.trial.service.UserDetailsServiceImpl;
 import company.trial.service.UserService;
 
 @RestController
