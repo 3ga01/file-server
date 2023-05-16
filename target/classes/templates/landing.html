@@ -77,11 +77,12 @@
           </form>
 
           <a th:href="@{/user/download/{name}(name=${files.name})}">Download</a>
-          <form action="/logout" method="get">
-            <button type="submit" id="logout">logout</button>
-          </form>
+         
         </div>
       </div>
     </div>
+     <form action="/logout" method="get" id="f-logout">
+            <button type="submit" id="logout">logout</button>
+          </form>
   </body>
 </html>
