@@ -40,20 +40,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetails;
-
-    // @PostMapping("/user")
-    // public ModelAndView userLogin(@ModelAttribute("user") User user) {
-    //     userDetails.loadUserByUsername(user.getEmail());
-    //     return new ModelAndView("redirect:/user/landing");
-    // }
-
-    // @GetMapping("/user/landing")
-    // @PreAuthorize("hasRole('USER')")
-    // public ModelAndView getLanding() {
-    //     return new ModelAndView("landing");
-    // }
+   
 
     @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
@@ -100,7 +87,7 @@ public class UserController {
 
     }
 
-    @Secured("ROLE_USER")
+    // @Secured("ROLE_USER")
     @GetMapping("/user/landing")
     public ModelAndView newSignUp(Model model) {
         List<Files> files = fileRepository.findAll();

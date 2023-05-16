@@ -39,6 +39,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
             if (isAdmin) {
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
             }
 
             else if(isUser){ 
