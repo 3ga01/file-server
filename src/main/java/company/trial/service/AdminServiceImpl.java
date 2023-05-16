@@ -24,14 +24,12 @@ public class AdminServiceImpl implements AdminService {
         try {
             uploadedFile.setFiles(file.getBytes());
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         uploadedFile.setType(type);
         uploadedFile.setDownloadCount(0);
         uploadedFile.setMailCount(0);
 
-        // Save the file to the database
         fileRepository.save(uploadedFile);
 
     }

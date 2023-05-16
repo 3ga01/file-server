@@ -1,22 +1,18 @@
 package company.trial.service;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import company.trial.model.Files;
 import company.trial.model.Role;
 import company.trial.model.User;
-import company.trial.repositories.FileRepository;
 import company.trial.repositories.UserRepository;
 
 @Service
@@ -27,9 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private Validator userValidator;
-
-    @Autowired
-    private FileRepository fileRepository;
 
     @Autowired
     private MailService mailService;
@@ -66,11 +59,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
-    public boolean isUserValidated(String email) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    
 
     @Override
     public String generateCode() {
@@ -94,16 +83,5 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public void findAllFiles() {
-        List<Files> files = fileRepository.findAll();
-
-    }
-
-    @Override
-    public void findFileByEmail() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findFileByEmail'");
-    }
-
+   
 }

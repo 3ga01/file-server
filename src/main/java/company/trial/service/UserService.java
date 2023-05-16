@@ -9,14 +9,9 @@ public interface UserService {
 
     boolean userExist(String email);
 
-    boolean isUserValidated(String email);
-
     String generateCode();
 
     boolean verify(User user);
 
-    void findAllFiles();
-
-    void findFileByEmail();
 
 }
