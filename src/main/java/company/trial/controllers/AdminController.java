@@ -52,7 +52,7 @@ public class AdminController {
 
     }
 
-    @PostMapping("/admin/viewFiles")
+    @GetMapping("/admin/viewFiles")
     public ModelAndView listProducts(Model model) {
         List<Files> files = fileRepository.findAll();
         model.addAttribute("files", files);
