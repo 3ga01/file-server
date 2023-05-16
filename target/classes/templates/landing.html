@@ -44,7 +44,10 @@
             </div>
             <div th:if="${files.type == 'audio/mpeg'}">
               <a th:href="@{/user/preview/{name}(name=${files.name})}">
-                <audio controls th:src="@{/user/preview/{name}(name=${files.name})}">
+                <audio
+                  controls
+                  th:src="@{/user/preview/{name}(name=${files.name})}"
+                >
                   <p>Your browser does not support the audio element.</p>
                 </audio>
               </a>
@@ -74,6 +77,9 @@
           </form>
 
           <a th:href="@{/user/download/{name}(name=${files.name})}">Download</a>
+          <form action="/logout" method="get">
+            <button type="submit" id="logout">logout</button>
+          </form>
         </div>
       </div>
     </div>

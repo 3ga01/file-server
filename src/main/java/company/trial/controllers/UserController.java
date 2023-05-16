@@ -40,7 +40,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-   
+    @GetMapping("/logout")
+    public ModelAndView logout() {
+        return new ModelAndView("login");
+    }
 
     @PostMapping("/signUp")
     public ModelAndView signupSubmit(@ModelAttribute("user") User user,
