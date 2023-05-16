@@ -28,7 +28,6 @@ public class AdminController {
     @Autowired
     private FileRepository fileRepository;
 
-    @Secured("ROLE_ADMIN")
     @GetMapping("/admin/login")
     public ModelAndView adminLanding(@ModelAttribute("validadmin") User user) {
         return new ModelAndView("adminLanding");
@@ -36,7 +35,6 @@ public class AdminController {
     }
 
     @GetMapping("/admin/upload")
-    @Secured("ROLE_ADMIN")
     public ModelAndView uploadPage() {
         return new ModelAndView("uploadFile");
 

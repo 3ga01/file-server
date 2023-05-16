@@ -64,13 +64,11 @@ public class UserController {
     }
 
     @GetMapping("/user/verify")
-    @PreAuthorize("hasRole('USER')")
     public ModelAndView showUserVerificatinPage() {
         return new ModelAndView("verify");
     }
 
     @PostMapping("/user/verify")
-    @PreAuthorize("hasRole('USER')")
     public ModelAndView verifyUser(@ModelAttribute("verify") User user, Model model) {
 
         if (userService.verify(user)) {
