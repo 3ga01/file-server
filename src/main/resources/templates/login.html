@@ -12,7 +12,7 @@
 
   <body>
     <div class="container">
-      <h1>User Login</h1>
+      <h1>Login</h1>
       <p th:if="${param.error ne null}" class="error-message">
         Invalid username or password
       </p>
@@ -46,7 +46,6 @@
 
         <button type="submit">Login</button>
 
-        <p><a th:href="@{/admin/login}">Login as Admin </a></p>
       </form>
     </div>
     <script>
