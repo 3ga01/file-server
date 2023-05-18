@@ -42,6 +42,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendEmailWithAttachment(String toEmail, String fileName, byte[] fileData, String fileType)
             throws MessagingException {
+                
         MimeMessage message = mailSender.createMimeMessage();
 
         // Set the To address

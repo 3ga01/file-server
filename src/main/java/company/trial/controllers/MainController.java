@@ -1,8 +1,12 @@
 package company.trial.controllers;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +30,26 @@ public class MainController {
     public ModelAndView signupForm(Model model) {
         model.addAttribute("user", new User());
         return new ModelAndView("signUp");
+    }
+
+    @PostMapping("/signUp")
+    public ModelAndView signupSubmit(@ModelAttribute("user") User user,
+            BindingResult result, Model model) throws MessagingException {
+
+        if (result.hasErrors()) {
+            model.addAttribute("message", "SignUp Failed!!!...Try Again");
+
+            return new ModelAndView("signUp");
+        }
+
+        if (userService.userExist(user.getEmail())) {
+            model.addAttribute("message", "SignUp Failed!!!...Email: " + user.getEmail() + " already exist");
+
+            return new ModelAndView("signUp");
+        }
+
+        userService.saveUser(user);
+        return new ModelAndView("redirect:/user/verify");
     }
 
     @GetMapping("/reset")
