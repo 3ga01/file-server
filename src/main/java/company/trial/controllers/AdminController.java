@@ -27,7 +27,7 @@ public class AdminController {
     @Autowired
     private FileRepository fileRepository;
 
-    @GetMapping("/admin/login")
+    @GetMapping("/admin/landing")
     public ModelAndView adminLanding(@ModelAttribute("validadmin") User user) {
         return new ModelAndView("adminLanding");
 

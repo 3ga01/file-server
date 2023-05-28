@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
         user.setVerificationCode(code);
 
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.ADMIN));
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
@@ -58,8 +58,6 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
-    
 
     @Override
     public String generateCode() {
@@ -96,5 +94,4 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-   
 }
