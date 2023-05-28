@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @Override
+    @Override   
     public String generateCode() {
         return String.format("%06d", new Random().nextInt(999999));
     }
