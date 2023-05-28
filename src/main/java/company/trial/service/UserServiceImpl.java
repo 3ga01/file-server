@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
         user.setVerificationCode(code);
 
-        user.setRoles(Collections.singleton(Role.ADMIN));
+        user.setRoles(Collections.singleton(Role.USER));
 
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
